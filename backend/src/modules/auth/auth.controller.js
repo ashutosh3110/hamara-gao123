@@ -103,12 +103,38 @@ export class AuthController {
 
   static async getMe(req, res, next) {
     try {
+      const user = req.user;
+      
+      // Load user profile details dynamically
+      let profile = null;
+      let pincode = '';
+      
+      if (user.role === 'Customer') {
+        const Customer = (await import('../customer/customer.model.js')).default;
+        const Address = (await import('../customer/address.model.js')).default;
+        profile = await Customer.findOne({ userId: user._id });
+        const address = await Address.findOne({ userId: user._id });
+        pincode = address?.pincode || '';
+      } else if (user.role === 'Vendor') {
+        const Vendor = (await import('../vendor/vendor.model.js')).default;
+        profile = await Vendor.findOne({ userId: user._id });
+        pincode = profile?.pincode || '';
+      } else if (user.role === 'Delivery Boy') {
+        const DeliveryBoy = (await import('../delivery/delivery.model.js')).default;
+        profile = await DeliveryBoy.findOne({ userId: user._id });
+        pincode = profile?.pincode || '';
+      }
+
       res.status(200).json({
         status: 'success',
         data: {
-          id: req.user._id,
-          email: req.user.email,
-          role: req.user.role,
+          id: user._id,
+          email: user.email,
+          role: user.role,
+          firstName: profile?.firstName || '',
+          lastName: profile?.lastName || '',
+          phone: profile?.phone || '',
+          pincode: pincode || '',
         },
       });
     } catch (error) {

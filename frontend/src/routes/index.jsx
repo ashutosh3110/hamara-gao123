@@ -1,6 +1,8 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+import { updateUser, logout } from '../redux/slices/authSlice';
+import axios from 'axios';
 import Login from '../pages/auth/Login';
 import Register from '../pages/auth/Register';
 import CustomerDashboard from '../pages/customer/CustomerDashboard';
@@ -50,6 +52,33 @@ const ProtectedRoute = ({ children, allowedRoles }) => {
 };
 
 export const AppRoutes = () => {
+  const dispatch = useDispatch();
+  const { token, isAuthenticated } = useSelector((state) => state.auth);
+
+  useEffect(() => {
+    const fetchProfile = async () => {
+      if (token && isAuthenticated) {
+        try {
+          const response = await axios.get(`${import.meta.env.VITE_API_URL}/auth/me`, {
+            headers: {
+              Authorization: `Bearer ${token}`
+            }
+          });
+          if (response.data.status === 'success') {
+            dispatch(updateUser(response.data.data));
+          }
+        } catch (error) {
+          console.error('Failed to fetch user profile:', error);
+          if (error.response?.status === 401) {
+            dispatch(logout());
+          }
+        }
+      }
+    };
+
+    fetchProfile();
+  }, [token, isAuthenticated, dispatch]);
+
   return (
     <Routes>
       {/* Public Routes */}

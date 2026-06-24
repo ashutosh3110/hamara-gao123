@@ -55,6 +55,12 @@ const localTranslations = {
     },
     bestSelling: "सबसे ज्यादा बिकने वाले उत्पाद",
     viewAll: "सभी देखें",
+    products: {
+      tomatoes: "ताजा लाल टमाटर",
+      dap: "IFFCO DAP खाद",
+      nanoUrea: "IFFCO नैनो यूरिया",
+      wheat: "शरबती गेहूं"
+    },
     nav: {
       home: "होम",
       orders: "ऑर्डर",
@@ -117,6 +123,12 @@ const localTranslations = {
     },
     bestSelling: "Best Selling Products",
     viewAll: "View All",
+    products: {
+      tomatoes: "Fresh Tomatoes",
+      dap: "IFFCO DAP Fertilizer",
+      nanoUrea: "IFFCO Nano Urea",
+      wheat: "Sharbati Wheat"
+    },
     nav: {
       home: "Home",
       orders: "Orders",
@@ -316,7 +328,9 @@ export default function CustomerDashboard() {
               <div className="flex items-center justify-between px-4 py-2 shrink-0">
                 <div className="flex items-center space-x-1 text-neutral-800 cursor-pointer">
                   <MapPin className="h-5 w-5 text-primary-700 fill-current" />
-                  <span className="text-sm font-bold">{t.locationLabel}</span>
+                  <span className="text-sm font-bold">
+                    {user?.pincode ? `${lang === 'hi' ? 'पिनकोड' : 'Pincode'}: ${user.pincode}` : t.locationLabel}
+                  </span>
                   <ChevronDown className="h-4 w-4 text-neutral-500" />
                 </div>
                 <div className="relative p-1 bg-white rounded-full shadow-xs cursor-pointer hover:bg-neutral-100 transition">

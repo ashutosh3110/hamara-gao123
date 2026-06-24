@@ -2,6 +2,10 @@ import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 import mongoose from 'mongoose';
 import AuthRepository from './auth.repository.js';
+import Customer from '../customer/customer.model.js';
+import Address from '../customer/address.model.js';
+import Vendor from '../vendor/vendor.model.js';
+import DeliveryBoy from '../delivery/delivery.model.js';
 
 export class AuthService {
   static generateAccessToken(user) {
@@ -73,6 +77,21 @@ export class AuthService {
           },
           session
         );
+
+        if (profileDetails.pincode) {
+          await Address.create(
+            [
+              {
+                userId: newUser._id,
+                title: 'Home',
+                addressLine1: 'Mera Gaon',
+                villageName: 'Harda',
+                pincode: profileDetails.pincode,
+              },
+            ],
+            { session }
+          );
+        }
       } else if (role === 'Vendor') {
         await AuthRepository.createVendorProfile(
           {
@@ -145,11 +164,30 @@ export class AuthService {
     // Save refresh token to user
     await AuthRepository.update(user._id, { refreshToken });
 
+    // Fetch profile and pincode details dynamically based on role
+    let profile = null;
+    let pincode = '';
+    if (user.role === 'Customer') {
+      profile = await Customer.findOne({ userId: user._id });
+      const address = await Address.findOne({ userId: user._id });
+      pincode = address?.pincode || '';
+    } else if (user.role === 'Vendor') {
+      profile = await Vendor.findOne({ userId: user._id });
+      pincode = profile?.pincode || '';
+    } else if (user.role === 'Delivery Boy') {
+      profile = await DeliveryBoy.findOne({ userId: user._id });
+      pincode = profile?.pincode || '';
+    }
+
     return {
       user: {
         id: user._id,
         email: user.email,
         role: user.role,
+        firstName: profile?.firstName || '',
+        lastName: profile?.lastName || '',
+        phone: profile?.phone || '',
+        pincode: pincode || '',
       },
       accessToken,
       refreshToken,
