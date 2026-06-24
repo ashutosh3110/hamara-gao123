@@ -33,19 +33,33 @@ export class AuthService {
     const salt = await bcrypt.genSalt(10);
     const hashedPassword = await bcrypt.hash(password, salt);
 
-    // Initialize Mongoose session if supported (Replica sets / Altas)
-    let session = null;
     try {
-      session = await mongoose.startSession();
-      session.startTransaction();
-    } catch (e) {
-      // Standalone local MongoDB does not support transactions
-      session = null;
+      // First attempt: use transaction session
+      return await this._executeRegistration({ email, password: hashedPassword, role, profileDetails }, true);
+    } catch (error) {
+      // If standalone database, it throws: "Transaction numbers are only allowed on a replica set member or mongos"
+      if (error.message && (error.message.includes('Transaction numbers') || error.code === 20)) {
+        console.warn('MongoDB standalone detected. Retrying registration without transaction session.');
+        return await this._executeRegistration({ email, password: hashedPassword, role, profileDetails }, false);
+      }
+      throw error;
+    }
+  }
+
+  static async _executeRegistration({ email, password, role, profileDetails }, useSession) {
+    let session = null;
+    if (useSession) {
+      try {
+        session = await mongoose.startSession();
+        session.startTransaction();
+      } catch (e) {
+        session = null;
+      }
     }
 
     try {
       const newUser = await AuthRepository.create(
-        { email, password: hashedPassword, role },
+        { email, password, role },
         session
       );
 
@@ -89,8 +103,12 @@ export class AuthService {
       return newUser;
     } catch (error) {
       if (session) {
-        await session.abortTransaction();
-        session.endSession();
+        try {
+          await session.abortTransaction();
+          session.endSession();
+        } catch (e) {
+          // ignore session abort errors during failure handling
+        }
       }
       throw error;
     }
