@@ -132,8 +132,8 @@ export default function Register() {
           {/* Logo & Branding Overlay */}
           <div className="absolute inset-0 flex flex-col items-center justify-center pt-8">
             {/* Custom SVG Shopping Sprout Logo */}
-            <div className="mb-1 flex items-center justify-center">
-              <svg viewBox="0 0 100 100" className="w-18 h-18">
+            <div className="mb-2 flex items-center justify-center">
+              <svg viewBox="0 0 100 100" className="w-22 h-22">
                 {/* Sprout/Leaves */}
                 <path d="M50,45 C50,25 50,20 50,20" stroke="#34a85a" strokeWidth="4" strokeLinecap="round" />
                 <path d="M50,20 C46,10 50,2 50,2 C50,2 54,10 50,20 Z" fill="#34a85a" />
@@ -154,11 +154,11 @@ export default function Register() {
             </div>
 
             {/* App Name */}
-            <h1 className="text-3xl font-extrabold tracking-wide text-primary-800">
+            <h1 className="text-4xl font-extrabold tracking-wide text-primary-800">
               {t.appName}
             </h1>
             {/* Tagline */}
-            <p className="text-xs font-bold text-neutral-800 text-center">
+            <p className="mt-1 text-sm font-bold text-neutral-800 text-center">
               {t.tagline}
             </p>
           </div>
