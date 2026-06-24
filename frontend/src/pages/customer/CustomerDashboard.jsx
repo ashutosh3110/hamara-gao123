@@ -231,36 +231,36 @@ export default function CustomerDashboard() {
 
   // Tractor subpage products
   const tractorProducts = [
-    { id: 'trac-1', name: 'Mahindra & Mahindra', imageUrl: '/tractors/mahindra_tractor.png' },
-    { id: 'trac-2', name: 'TAFE', imageUrl: '/tractors/tafe_tractor.png' },
-    { id: 'trac-3', name: 'Sonalika', imageUrl: '/tractors/sonalika_tractor.png' },
-    { id: 'trac-4', name: 'Escorts Kubota', imageUrl: '/tractors/escorts_kubota_tractor.png' },
-    { id: 'trac-5', name: 'John Deere India', imageUrl: '/tractors/john_deere_tractor.png' },
-    { id: 'trac-6', name: 'New Holland Agriculture', imageUrl: '/tractors/new_holland_tractor.png' },
-    { id: 'trac-7', name: 'Massey Ferguson', imageUrl: '/tractors/massey_ferguson_tractor.png' },
-    { id: 'trac-8', name: 'Swaraj Tractors', imageUrl: '/tractors/swaraj_tractor.png' },
-    { id: 'trac-9', name: 'Eicher Tractors', imageUrl: '/tractors/eicher_tractor.png' },
-    { id: 'trac-10', name: 'Powertrac', imageUrl: '/tractors/powertrac_tractor.png' },
-    { id: 'trac-11', name: 'Farmtrac', imageUrl: '/tractors/mahindra_tractor.png' },
-    { id: 'trac-12', name: 'Kubota', imageUrl: '/tractors/tafe_tractor.png' },
-    { id: 'trac-13', name: 'Captain Tractors', imageUrl: '/tractors/sonalika_tractor.png' },
-    { id: 'trac-14', name: 'ACE Tractors', imageUrl: '/tractors/escorts_kubota_tractor.png' },
-    { id: 'trac-15', name: 'Preet Tractors', imageUrl: '/tractors/john_deere_tractor.png' },
-    { id: 'trac-16', name: 'VST Tillers Tractors', imageUrl: '/tractors/new_holland_tractor.png' },
-    { id: 'trac-17', name: 'Indo Farm Equipment', imageUrl: '/tractors/massey_ferguson_tractor.png' },
-    { id: 'trac-18', name: 'Force Motors', imageUrl: '/tractors/swaraj_tractor.png' },
-    { id: 'trac-19', name: 'HMT Tractors', imageUrl: '/tractors/eicher_tractor.png' },
-    { id: 'trac-20', name: 'Same Deutz-Fahr', imageUrl: '/tractors/powertrac_tractor.png' },
-    { id: 'trac-21', name: 'Valtra', imageUrl: '/tractors/mahindra_tractor.png' },
-    { id: 'trac-22', name: 'CLAAS', imageUrl: '/tractors/tafe_tractor.png' },
-    { id: 'trac-23', name: 'Fendt', imageUrl: '/tractors/sonalika_tractor.png' },
-    { id: 'trac-24', name: 'Case IH', imageUrl: '/tractors/escorts_kubota_tractor.png' },
-    { id: 'trac-25', name: 'Lovol', imageUrl: '/tractors/john_deere_tractor.png' },
-    { id: 'trac-26', name: 'Yanmar', imageUrl: '/tractors/new_holland_tractor.png' },
-    { id: 'trac-27', name: 'Mitsubishi Agricultural Machinery', imageUrl: '/tractors/massey_ferguson_tractor.png' },
-    { id: 'trac-28', name: 'Kioti', imageUrl: '/tractors/swaraj_tractor.png' },
-    { id: 'trac-29', name: 'LS Tractor', imageUrl: '/tractors/eicher_tractor.png' },
-    { id: 'trac-30', name: 'Branson Tractors', imageUrl: '/tractors/powertrac_tractor.png' }
+    { id: 'trac-1', name: 'Mahindra & Mahindra', imageUrl: '/tractors/mahindra_tractor.png', tagHi: '50% सब्सिडी', tagEn: '50% Subsidy' },
+    { id: 'trac-2', name: 'TAFE', imageUrl: '/tractors/tafe_tractor.png', tagHi: 'सर्वोत्तम माइलेज', tagEn: 'Best Mileage' },
+    { id: 'trac-3', name: 'Sonalika', imageUrl: '/tractors/sonalika_tractor.png', tagHi: 'सबसे लोकप्रिय', tagEn: 'Most Popular' },
+    { id: 'trac-4', name: 'Escorts Kubota', imageUrl: '/tractors/escorts_kubota_tractor.png', tagHi: 'किराये पर उपलब्ध', tagEn: 'Available for Rent' },
+    { id: 'trac-5', name: 'John Deere India', imageUrl: '/tractors/john_deere_tractor.png', tagHi: 'हैवी ड्यूटी', tagEn: 'Heavy Duty' },
+    { id: 'trac-6', name: 'New Holland Agriculture', imageUrl: '/tractors/new_holland_tractor.png', tagHi: 'नया मॉडल', tagEn: 'New Model' },
+    { id: 'trac-7', name: 'Massey Ferguson', imageUrl: '/tractors/massey_ferguson_tractor.png', tagHi: 'सदाबहार पिक', tagEn: 'Classic Pick' },
+    { id: 'trac-8', name: 'Swaraj Tractors', imageUrl: '/tractors/swaraj_tractor.png', tagHi: 'लोकल सपोर्ट', tagEn: 'Local Support' },
+    { id: 'trac-9', name: 'Eicher Tractors', imageUrl: '/tractors/eicher_tractor.png', tagHi: 'किफायती', tagEn: 'Affordable' },
+    { id: 'trac-10', name: 'Powertrac', imageUrl: '/tractors/powertrac_tractor.png', tagHi: 'सुपर पावर', tagEn: 'Super Power' },
+    { id: 'trac-11', name: 'Farmtrac', imageUrl: '/tractors/mahindra_tractor.png', tagHi: 'सब्सिडी योग्य', tagEn: 'Subsidy Eligible' },
+    { id: 'trac-12', name: 'Kubota', imageUrl: '/tractors/tafe_tractor.png', tagHi: 'जापानी तकनीक', tagEn: 'Japanese Tech' },
+    { id: 'trac-13', name: 'Captain Tractors', imageUrl: '/tractors/sonalika_tractor.png', tagHi: 'छोटा ट्रैक्टर', tagEn: 'Mini Tractor' },
+    { id: 'trac-14', name: 'ACE Tractors', imageUrl: '/tractors/escorts_kubota_tractor.png', tagHi: 'मल्टीपर्पस', tagEn: 'Multipurpose' },
+    { id: 'trac-15', name: 'Preet Tractors', imageUrl: '/tractors/john_deere_tractor.png', tagHi: 'भारतीय तकनीक', tagEn: 'Indian Tech' },
+    { id: 'trac-16', name: 'VST Tillers Tractors', imageUrl: '/tractors/new_holland_tractor.png', tagHi: 'टेलर स्पेशल', tagEn: 'Tiller Special' },
+    { id: 'trac-17', name: 'Indo Farm Equipment', imageUrl: '/tractors/massey_ferguson_tractor.png', tagHi: 'दमदार इंजन', tagEn: 'Strong Engine' },
+    { id: 'trac-18', name: 'Force Motors', imageUrl: '/tractors/swaraj_tractor.png', tagHi: 'भरोसेमंद', tagEn: 'Reliable' },
+    { id: 'trac-19', name: 'HMT Tractors', imageUrl: '/tractors/eicher_tractor.png', tagHi: 'पारंपरिक', tagEn: 'Traditional' },
+    { id: 'trac-20', name: 'Same Deutz-Fahr', imageUrl: '/tractors/powertrac_tractor.png', tagHi: 'जर्मन तकनीक', tagEn: 'German Tech' },
+    { id: 'trac-21', name: 'Valtra', imageUrl: '/tractors/mahindra_tractor.png', tagHi: 'आधुनिक', tagEn: 'Modern' },
+    { id: 'trac-22', name: 'CLAAS', imageUrl: '/tractors/tafe_tractor.png', tagHi: 'हैवी मशीनरी', tagEn: 'Heavy Machinery' },
+    { id: 'trac-23', name: 'Fendt', imageUrl: '/tractors/sonalika_tractor.png', tagHi: 'प्रीमियम', tagEn: 'Premium' },
+    { id: 'trac-24', name: 'Case IH', imageUrl: '/tractors/escorts_kubota_tractor.png', tagHi: 'ग्लोबल पावर', tagEn: 'Global Power' },
+    { id: 'trac-25', name: 'Lovol', imageUrl: '/tractors/john_deere_tractor.png', tagHi: 'कुशल प्रदर्शन', tagEn: 'Efficient' },
+    { id: 'trac-26', name: 'Yanmar', imageUrl: '/tractors/new_holland_tractor.png', tagHi: 'स्मार्ट टेक', tagEn: 'Smart Tech' },
+    { id: 'trac-27', name: 'Mitsubishi Agricultural Machinery', imageUrl: '/tractors/massey_ferguson_tractor.png', tagHi: 'जापानी गुणवत्ता', tagEn: 'Japanese Quality' },
+    { id: 'trac-28', name: 'Kioti', imageUrl: '/tractors/swaraj_tractor.png', tagHi: 'मजबूत बिल्ड', tagEn: 'Strong Build' },
+    { id: 'trac-29', name: 'LS Tractor', imageUrl: '/tractors/eicher_tractor.png', tagHi: 'स्मूथ ड्राइव', tagEn: 'Smooth Drive' },
+    { id: 'trac-30', name: 'Branson Tractors', imageUrl: '/tractors/powertrac_tractor.png', tagHi: 'सर्वश्रेष्ठ वारंटी', tagEn: 'Best Warranty' }
   ];
 
 
@@ -449,7 +449,7 @@ export default function CustomerDashboard() {
               
               {/* Conditional rendering for Vegetables category view vs Main dashboard */}
               {currentCategory === 'vegetables' ? (
-                <div className="flex-1 flex flex-col overflow-hidden">
+                <div className="flex-1 flex flex-col overflow-hidden bg-neutral-50">
                   
                   {/* Category Header */}
                   <div className="flex items-center space-x-3 px-4 py-2 shrink-0 border-b border-neutral-100 bg-white">
@@ -462,7 +462,7 @@ export default function CustomerDashboard() {
                     </button>
                     <div>
                       <h2 className="text-base font-black text-neutral-900 leading-snug">{t.categories.vegetables}</h2>
-                      <p className="text-[10px] text-neutral-400 font-semibold leading-none">{t.categories.vegetablesSub}</p>
+                      <p className="text-[10px] text-emerald-650 font-bold leading-none">{t.categories.vegetablesSub}</p>
                     </div>
                   </div>
 
@@ -481,30 +481,25 @@ export default function CustomerDashboard() {
                   {/* Vegetables Grid Container */}
                   <div className="flex-1 overflow-y-auto px-4 pb-4 space-y-3.5">
                     <div className="grid grid-cols-2 gap-3.5 pt-1">
-                      {vegetableProducts.map(product => {
-                        const isInWishlist = wishlist.includes(product.id);
-                        const cartItem = cart.find(item => item.id === product.id);
-                        
-                        return (
-                          <div key={product.id} className="relative rounded-2xl bg-white border border-neutral-100 p-3.5 shadow-3xs flex flex-col items-center justify-center hover:shadow-xs transition">
-                            
-                            {/* Product Image (Real Image) */}
-                            <div className="w-full h-28 overflow-hidden rounded-xl bg-neutral-50 mb-3 flex items-center justify-center shrink-0">
-                              <img 
-                                src={product.imageUrl} 
-                                alt={t.products[product.nameKey]} 
-                                className="w-full h-full object-cover rounded-xl"
-                              />
-                            </div>
-
-                            {/* Product Name */}
-                            <div className="text-center w-full">
-                              <h4 className="text-xs font-black text-neutral-800 leading-snug truncate">{t.products[product.nameKey]}</h4>
-                            </div>
-
+                      {vegetableProducts.map(product => (
+                        <div key={product.id} className="relative rounded-2xl bg-white border border-neutral-100 p-3.5 shadow-3xs flex flex-col items-center justify-center hover:shadow-xs transition">
+                          
+                          {/* Product Image (Real Image) */}
+                          <div className="w-full h-28 overflow-hidden rounded-xl bg-neutral-50 mb-3 flex items-center justify-center shrink-0">
+                            <img 
+                              src={product.imageUrl} 
+                              alt={t.products[product.nameKey]} 
+                              className="w-full h-full object-cover rounded-xl"
+                            />
                           </div>
-                        );
-                      })}
+
+                          {/* Product Name */}
+                          <div className="text-center w-full">
+                            <h4 className="text-xs font-black text-neutral-800 leading-snug truncate">{t.products[product.nameKey]}</h4>
+                          </div>
+
+                        </div>
+                      ))}
                     </div>
                   </div>
 
@@ -522,13 +517,35 @@ export default function CustomerDashboard() {
                       <ArrowLeft className="h-5 w-5 text-neutral-700" />
                     </button>
                     <div>
-                      <h2 className="text-base font-black text-neutral-900 leading-snug">{t.categories.tractor}</h2>
-                      <p className="text-[10px] text-neutral-400 font-semibold leading-none">{t.categories.tractorSub}</p>
+                      <h2 className="text-base font-black text-neutral-900 leading-snug">
+                        {lang === 'hi' ? 'ट्रैक्टर केंद्र (Tractor Hub)' : 'Tractor Hub'}
+                      </h2>
+                      <p className="text-[10px] text-emerald-650 font-bold leading-none">
+                        {lang === 'hi' ? 'आपके खेत के लिए सर्वश्रेष्ठ ट्रैक्टर' : 'Best Tractors for Your Farming Needs'}
+                      </p>
                     </div>
                   </div>
 
+                  {/* Farmer Campaign Banner */}
+                  <div className="mx-4 mt-3 rounded-2xl bg-gradient-to-r from-emerald-600 to-green-800 p-4.5 text-white shadow-3xs relative overflow-hidden shrink-0">
+                    <div className="absolute -right-4 -bottom-4 opacity-10 pointer-events-none">
+                      <svg viewBox="0 0 100 100" className="w-24 h-24 text-white fill-current">
+                        <path d="M10,80 Q50,20 90,80 Z" />
+                      </svg>
+                    </div>
+                    <span className="inline-block rounded-full bg-amber-400 px-2 py-0.5 text-[8px] font-black text-emerald-950 uppercase tracking-wider mb-1.5">
+                      🚜 PM-किसान योजना सब्सिडी स्वीकृत
+                    </span>
+                    <h3 className="text-xs font-black leading-snug">
+                      {lang === 'hi' ? 'खोजें अपने बजट का सही साथी' : 'Find the Perfect Tractor for Your Budget'}
+                    </h3>
+                    <p className="text-[9px] text-green-100 mt-1 font-bold">
+                      {lang === 'hi' ? 'सरकारी योजनाओं के अंतर्गत पाएं 50% तक की छूट' : 'Get up to 50% Government Subsidy'}
+                    </p>
+                  </div>
+
                   {/* Search Bar inside Category */}
-                  <div className="px-4 py-2 shrink-0">
+                  <div className="px-4 py-2.5 shrink-0">
                     <div className="flex h-10 items-center rounded-xl border border-neutral-200 bg-white px-3 shadow-3xs">
                       <Search className="h-4.5 w-4.5 text-neutral-400" />
                       <input 
@@ -539,23 +556,44 @@ export default function CustomerDashboard() {
                     </div>
                   </div>
 
+                  {/* Farmer Filter Tabs */}
+                  <div className="flex space-x-2 overflow-x-auto px-4 pb-2.5 scrollbar-none shrink-0">
+                    <button className="px-3.5 py-1 rounded-full bg-emerald-800 text-white text-[10px] font-extrabold shadow-3xs shrink-0 transition">
+                      {lang === 'hi' ? 'सभी ब्रांड' : 'All Brands'}
+                    </button>
+                    <button className="px-3.5 py-1 rounded-full bg-white border border-neutral-200 text-neutral-600 hover:bg-neutral-50 text-[10px] font-extrabold shrink-0 transition">
+                      {lang === 'hi' ? 'सब्सिडी वाले' : 'Govt Subsidy Approved'}
+                    </button>
+                    <button className="px-3.5 py-1 rounded-full bg-white border border-neutral-200 text-neutral-600 hover:bg-neutral-50 text-[10px] font-extrabold shrink-0 transition">
+                      {lang === 'hi' ? 'हैवी ड्यूटी' : 'Heavy Duty'}
+                    </button>
+                    <button className="px-3.5 py-1 rounded-full bg-white border border-neutral-200 text-neutral-600 hover:bg-neutral-50 text-[10px] font-extrabold shrink-0 transition">
+                      {lang === 'hi' ? 'किराये पर उपलब्ध' : 'Available for Rent'}
+                    </button>
+                  </div>
+
                   {/* Tractor Grid Container */}
                   <div className="flex-1 overflow-y-auto px-4 pb-4 space-y-3.5">
                     <div className="grid grid-cols-2 gap-3.5 pt-1">
                       {tractorProducts.map(product => (
-                        <div key={product.id} className="relative rounded-2xl bg-white border border-neutral-100 p-3.5 shadow-3xs flex flex-col items-center justify-center hover:shadow-xs transition">
+                        <div key={product.id} className="relative rounded-2xl bg-white border border-neutral-100 p-3 shadow-3xs flex flex-col items-center justify-between hover:shadow-xs hover:border-emerald-200 transition">
                           
-                          {/* Tractor Image (Real Image) */}
-                          <div className="w-full h-28 overflow-hidden rounded-xl bg-neutral-50 mb-3 flex items-center justify-center shrink-0">
+                          {/* Farmer benefit Badge */}
+                          <span className="absolute top-2.5 left-2.5 z-10 rounded bg-emerald-50 border border-emerald-100 px-1.5 py-0.5 text-[8px] font-black text-emerald-800 uppercase tracking-wider scale-[0.9] origin-left">
+                            {lang === 'hi' ? product.tagHi : product.tagEn}
+                          </span>
+
+                          {/* Tractor Image (Real Studio Shot) */}
+                          <div className="w-full h-24 overflow-hidden rounded-xl bg-white mt-4 mb-2 flex items-center justify-center shrink-0">
                             <img 
                               src={product.imageUrl} 
                               alt={product.name} 
-                              className="w-full h-full object-cover rounded-xl"
+                              className="w-full h-full object-contain rounded-xl p-0.5"
                             />
                           </div>
 
                           {/* Tractor Name */}
-                          <div className="text-center w-full">
+                          <div className="text-center w-full pt-1 border-t border-neutral-50">
                             <h4 className="text-xs font-black text-neutral-800 leading-snug truncate">{product.name}</h4>
                           </div>
 
