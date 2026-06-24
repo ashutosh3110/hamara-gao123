@@ -469,7 +469,7 @@ export default function CustomerDashboard() {
                   {/* Search Bar inside Category */}
                   <div className="px-4 py-2 shrink-0">
                     <div className="flex h-10 items-center rounded-xl border border-neutral-200 bg-white px-3 shadow-3xs">
-                      <Search className="h-4.5 w-4.5 text-neutral-400" />
+                      <Search className="h-4 w-4 text-neutral-400" />
                       <input 
                         type="text"
                         placeholder={t.searchPlaceholder}
@@ -527,19 +527,19 @@ export default function CustomerDashboard() {
                   </div>
 
                   {/* Farmer Campaign Banner */}
-                  <div className="mx-4 mt-3 rounded-2xl bg-gradient-to-r from-emerald-600 to-green-800 p-4.5 text-white shadow-3xs relative overflow-hidden shrink-0">
+                  <div className="mx-4 mt-3 rounded-2xl bg-gradient-to-r from-emerald-600 to-green-800 p-5 text-white shadow-xs relative overflow-hidden shrink-0">
                     <div className="absolute -right-4 -bottom-4 opacity-10 pointer-events-none">
                       <svg viewBox="0 0 100 100" className="w-24 h-24 text-white fill-current">
                         <path d="M10,80 Q50,20 90,80 Z" />
                       </svg>
                     </div>
-                    <span className="inline-block rounded-full bg-amber-400 px-2 py-0.5 text-[8px] font-black text-emerald-950 uppercase tracking-wider mb-1.5">
+                    <span className="inline-block rounded-full bg-amber-400 px-2.5 py-1 text-[9px] font-black text-emerald-950 uppercase tracking-wider mb-2">
                       🚜 PM-किसान योजना सब्सिडी स्वीकृत
                     </span>
-                    <h3 className="text-xs font-black leading-snug">
+                    <h3 className="text-xs sm:text-sm font-black leading-snug">
                       {lang === 'hi' ? 'खोजें अपने बजट का सही साथी' : 'Find the Perfect Tractor for Your Budget'}
                     </h3>
-                    <p className="text-[9px] text-green-100 mt-1 font-bold">
+                    <p className="text-[10px] text-emerald-50 mt-1.5 font-bold">
                       {lang === 'hi' ? 'सरकारी योजनाओं के अंतर्गत पाएं 50% तक की छूट' : 'Get up to 50% Government Subsidy'}
                     </p>
                   </div>
@@ -547,7 +547,7 @@ export default function CustomerDashboard() {
                   {/* Search Bar inside Category */}
                   <div className="px-4 py-2.5 shrink-0">
                     <div className="flex h-10 items-center rounded-xl border border-neutral-200 bg-white px-3 shadow-3xs">
-                      <Search className="h-4.5 w-4.5 text-neutral-400" />
+                      <Search className="h-4 w-4 text-neutral-400" />
                       <input 
                         type="text"
                         placeholder={t.searchPlaceholder}
