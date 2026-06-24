@@ -229,6 +229,40 @@ export default function CustomerDashboard() {
     { id: 'veg-8', nameKey: 'carrot', price: 40, unit: '1 kg', imageType: 'carrot', imageUrl: 'https://images.unsplash.com/photo-1598170845058-32b9d6a5da37?w=400&auto=format&fit=crop&q=80' }
   ];
 
+  // Tractor subpage products
+  const tractorProducts = [
+    { id: 'trac-1', name: 'Mahindra & Mahindra', imageUrl: 'https://images.unsplash.com/photo-1599940824399-b87987ceb72a?w=400&auto=format&fit=crop&q=80' },
+    { id: 'trac-2', name: 'TAFE', imageUrl: 'https://images.unsplash.com/photo-1594913785162-e6785b42fbb1?w=400&auto=format&fit=crop&q=80' },
+    { id: 'trac-3', name: 'Sonalika', imageUrl: 'https://images.unsplash.com/photo-1500382017468-9049fed747ef?w=400&auto=format&fit=crop&q=80' },
+    { id: 'trac-4', name: 'Escorts Kubota', imageUrl: 'https://images.unsplash.com/photo-1563245372-f21724e3856d?w=400&auto=format&fit=crop&q=80' },
+    { id: 'trac-5', name: 'John Deere India', imageUrl: 'https://images.unsplash.com/photo-1530263119100-c0291176a0e8?w=400&auto=format&fit=crop&q=80' },
+    { id: 'trac-6', name: 'New Holland Agriculture', imageUrl: 'https://images.unsplash.com/photo-1594913785182-f40b2e2d53bf?w=400&auto=format&fit=crop&q=80' },
+    { id: 'trac-7', name: 'Massey Ferguson', imageUrl: 'https://images.unsplash.com/photo-1527847263472-aa5338d178b8?w=400&auto=format&fit=crop&q=80' },
+    { id: 'trac-8', name: 'Swaraj Tractors', imageUrl: 'https://images.unsplash.com/photo-1533518463841-d62e1fc91373?w=400&auto=format&fit=crop&q=80' },
+    { id: 'trac-9', name: 'Eicher Tractors', imageUrl: 'https://images.unsplash.com/photo-1579818218001-c8f2b34a45a3?w=400&auto=format&fit=crop&q=80' },
+    { id: 'trac-10', name: 'Powertrac', imageUrl: 'https://images.unsplash.com/photo-1605117882932-f9e32b03fea9?w=400&auto=format&fit=crop&q=80' },
+    { id: 'trac-11', name: 'Farmtrac', imageUrl: 'https://images.unsplash.com/photo-1589714859847-eb5e43a9f0ee?w=400&auto=format&fit=crop&q=80' },
+    { id: 'trac-12', name: 'Kubota', imageUrl: 'https://images.unsplash.com/photo-1563245372-f21724e3856d?w=400&auto=format&fit=crop&q=80' },
+    { id: 'trac-13', name: 'Captain Tractors', imageUrl: 'https://images.unsplash.com/photo-1599940824399-b87987ceb72a?w=400&auto=format&fit=crop&q=80' },
+    { id: 'trac-14', name: 'ACE Tractors', imageUrl: 'https://images.unsplash.com/photo-1500382017468-9049fed747ef?w=400&auto=format&fit=crop&q=80' },
+    { id: 'trac-15', name: 'Preet Tractors', imageUrl: 'https://images.unsplash.com/photo-1594913785162-e6785b42fbb1?w=400&auto=format&fit=crop&q=80' },
+    { id: 'trac-16', name: 'VST Tillers Tractors', imageUrl: 'https://images.unsplash.com/photo-1530263119100-c0291176a0e8?w=400&auto=format&fit=crop&q=80' },
+    { id: 'trac-17', name: 'Indo Farm Equipment', imageUrl: 'https://images.unsplash.com/photo-1594913785182-f40b2e2d53bf?w=400&auto=format&fit=crop&q=80' },
+    { id: 'trac-18', name: 'Force Motors', imageUrl: 'https://images.unsplash.com/photo-1527847263472-aa5338d178b8?w=400&auto=format&fit=crop&q=80' },
+    { id: 'trac-19', name: 'HMT Tractors', imageUrl: 'https://images.unsplash.com/photo-1533518463841-d62e1fc91373?w=400&auto=format&fit=crop&q=80' },
+    { id: 'trac-20', name: 'Same Deutz-Fahr', imageUrl: 'https://images.unsplash.com/photo-1579818218001-c8f2b34a45a3?w=400&auto=format&fit=crop&q=80' },
+    { id: 'trac-21', name: 'Valtra', imageUrl: 'https://images.unsplash.com/photo-1605117882932-f9e32b03fea9?w=400&auto=format&fit=crop&q=80' },
+    { id: 'trac-22', name: 'CLAAS', imageUrl: 'https://images.unsplash.com/photo-1589714859847-eb5e43a9f0ee?w=400&auto=format&fit=crop&q=80' },
+    { id: 'trac-23', name: 'Fendt', imageUrl: 'https://images.unsplash.com/photo-1599940824399-b87987ceb72a?w=400&auto=format&fit=crop&q=80' },
+    { id: 'trac-24', name: 'Case IH', imageUrl: 'https://images.unsplash.com/photo-1563245372-f21724e3856d?w=400&auto=format&fit=crop&q=80' },
+    { id: 'trac-25', name: 'Lovol', imageUrl: 'https://images.unsplash.com/photo-1594913785162-e6785b42fbb1?w=400&auto=format&fit=crop&q=80' },
+    { id: 'trac-26', name: 'Yanmar', imageUrl: 'https://images.unsplash.com/photo-1530263119100-c0291176a0e8?w=400&auto=format&fit=crop&q=80' },
+    { id: 'trac-27', name: 'Mitsubishi Agricultural Machinery', imageUrl: 'https://images.unsplash.com/photo-1594913785182-f40b2e2d53bf?w=400&auto=format&fit=crop&q=80' },
+    { id: 'trac-28', name: 'Kioti', imageUrl: 'https://images.unsplash.com/photo-1527847263472-aa5338d178b8?w=400&auto=format&fit=crop&q=80' },
+    { id: 'trac-29', name: 'LS Tractor', imageUrl: 'https://images.unsplash.com/photo-1533518463841-d62e1fc91373?w=400&auto=format&fit=crop&q=80' },
+    { id: 'trac-30', name: 'Branson Tractors', imageUrl: 'https://images.unsplash.com/photo-1579818218001-c8f2b34a45a3?w=400&auto=format&fit=crop&q=80' }
+  ];
+
 
   // Mock past orders
   const [ordersList, setOrdersList] = useState([
@@ -475,6 +509,62 @@ export default function CustomerDashboard() {
                   </div>
 
                 </div>
+              ) : currentCategory === 'tractor' ? (
+                <div className="flex-1 flex flex-col overflow-hidden bg-neutral-50">
+                  
+                  {/* Category Header */}
+                  <div className="flex items-center space-x-3 px-4 py-2 shrink-0 border-b border-neutral-100 bg-white">
+                    <button
+                      type="button"
+                      onClick={() => setCurrentCategory(null)}
+                      className="p-1.5 rounded-lg text-neutral-600 hover:bg-neutral-100 transition active:scale-[0.95]"
+                    >
+                      <ArrowLeft className="h-5 w-5 text-neutral-700" />
+                    </button>
+                    <div>
+                      <h2 className="text-base font-black text-neutral-900 leading-snug">{t.categories.tractor}</h2>
+                      <p className="text-[10px] text-neutral-400 font-semibold leading-none">{t.categories.tractorSub}</p>
+                    </div>
+                  </div>
+
+                  {/* Search Bar inside Category */}
+                  <div className="px-4 py-2 shrink-0">
+                    <div className="flex h-10 items-center rounded-xl border border-neutral-200 bg-white px-3 shadow-3xs">
+                      <Search className="h-4.5 w-4.5 text-neutral-400" />
+                      <input 
+                        type="text"
+                        placeholder={t.searchPlaceholder}
+                        className="flex-1 pl-2 text-xs font-semibold text-neutral-800 placeholder-neutral-400 outline-none bg-transparent"
+                      />
+                    </div>
+                  </div>
+
+                  {/* Tractor Grid Container */}
+                  <div className="flex-1 overflow-y-auto px-4 pb-4 space-y-3.5">
+                    <div className="grid grid-cols-2 gap-3.5 pt-1">
+                      {tractorProducts.map(product => (
+                        <div key={product.id} className="relative rounded-2xl bg-white border border-neutral-100 p-3.5 shadow-3xs flex flex-col items-center justify-center hover:shadow-xs transition">
+                          
+                          {/* Tractor Image (Real Image) */}
+                          <div className="w-full h-28 overflow-hidden rounded-xl bg-neutral-50 mb-3 flex items-center justify-center shrink-0">
+                            <img 
+                              src={product.imageUrl} 
+                              alt={product.name} 
+                              className="w-full h-full object-cover rounded-xl"
+                            />
+                          </div>
+
+                          {/* Tractor Name */}
+                          <div className="text-center w-full">
+                            <h4 className="text-xs font-black text-neutral-800 leading-snug truncate">{product.name}</h4>
+                          </div>
+
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+
+                </div>
               ) : (
                 <div className="flex-1 flex flex-col overflow-hidden">
                   
@@ -560,7 +650,10 @@ export default function CustomerDashboard() {
                       </div>
 
                       {/* Category: Tractor */}
-                      <div className="flex flex-col justify-between rounded-2xl bg-white border border-neutral-100 p-3.5 shadow-2xs hover:shadow-xs transition">
+                      <div 
+                        onClick={() => setCurrentCategory('tractor')}
+                        className="flex flex-col justify-between rounded-2xl bg-white border border-neutral-100 p-3.5 shadow-2xs hover:shadow-xs transition cursor-pointer"
+                      >
                         <div>
                           <h3 className="text-sm font-extrabold text-primary-950">{t.categories.tractor}</h3>
                           <p className="text-[10px] text-neutral-400 font-semibold leading-tight mt-0.5">{t.categories.tractorSub}</p>
