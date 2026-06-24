@@ -106,7 +106,7 @@ export default function Login() {
         </button>
 
         {/* Top Illustration Banner */}
-        <div className="relative h-[290px] w-full overflow-hidden bg-primary-50 shrink-0">
+        <div className="relative h-[230px] w-full overflow-hidden bg-primary-50 shrink-0">
           <img
             src={bannerImg}
             alt="Village Farm Field Illustration"
@@ -150,8 +150,8 @@ export default function Login() {
           </div>
         </div>
 
-        {/* Login Form Container - Slide-up Card layout raised slightly with -mt-20 */}
-        <div className="relative -mt-20 flex-1 rounded-t-[36px] bg-white px-6 pt-6 pb-4 shadow-lg flex flex-col justify-between overflow-hidden">
+        {/* Login Form Container - Slide-up Card layout raised slightly with -mt-8 */}
+        <div className="relative -mt-8 flex-1 rounded-t-[36px] bg-white px-6 pt-6 pb-4 shadow-lg flex flex-col justify-between overflow-hidden">
           
           <div>
             {/* Header Title with underline indicator */}
