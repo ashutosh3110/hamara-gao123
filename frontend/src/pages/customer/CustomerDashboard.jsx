@@ -219,15 +219,16 @@ export default function CustomerDashboard() {
 
   // Vegetable subpage products
   const vegetableProducts = [
-    { id: 'veg-1', nameKey: 'tomatoes', price: 40, unit: '1 kg', imageType: 'tomatoes' },
-    { id: 'veg-2', nameKey: 'potatoes', price: 30, unit: '1 kg', imageType: 'potatoes' },
-    { id: 'veg-3', nameKey: 'onion', price: 35, unit: '1 kg', imageType: 'onion' },
-    { id: 'veg-4', nameKey: 'ladyfinger', price: 50, unit: '1 kg', imageType: 'ladyfinger' },
-    { id: 'veg-5', nameKey: 'cauliflower', price: 45, unit: '1 piece', imageType: 'cauliflower' },
-    { id: 'veg-6', nameKey: 'greenpeas', price: 60, unit: '1 kg', imageType: 'greenpeas' },
-    { id: 'veg-7', nameKey: 'spinach', price: 20, unit: '1 bunch', imageType: 'spinach' },
-    { id: 'veg-8', nameKey: 'carrot', price: 40, unit: '1 kg', imageType: 'carrot' }
+    { id: 'veg-1', nameKey: 'tomatoes', price: 40, unit: '1 kg', imageType: 'tomatoes', imageUrl: 'https://images.unsplash.com/photo-1595855759920-86582396756a?w=400&auto=format&fit=crop&q=80' },
+    { id: 'veg-2', nameKey: 'potatoes', price: 30, unit: '1 kg', imageType: 'potatoes', imageUrl: 'https://images.unsplash.com/photo-1518977676601-b53f82aba655?w=400&auto=format&fit=crop&q=80' },
+    { id: 'veg-3', nameKey: 'onion', price: 35, unit: '1 kg', imageType: 'onion', imageUrl: 'https://images.unsplash.com/photo-1508747703725-719ae2c13d4b?w=400&auto=format&fit=crop&q=80' },
+    { id: 'veg-4', nameKey: 'ladyfinger', price: 50, unit: '1 kg', imageType: 'ladyfinger', imageUrl: 'https://images.unsplash.com/photo-1627702812089-8d14878a83d3?w=400&auto=format&fit=crop&q=80' },
+    { id: 'veg-5', nameKey: 'cauliflower', price: 45, unit: '1 piece', imageType: 'cauliflower', imageUrl: 'https://images.unsplash.com/photo-1568584711291-75041598f652?w=400&auto=format&fit=crop&q=80' },
+    { id: 'veg-6', nameKey: 'greenpeas', price: 60, unit: '1 kg', imageType: 'greenpeas', imageUrl: 'https://images.unsplash.com/photo-1592394533824-9440e5d68530?w=400&auto=format&fit=crop&q=80' },
+    { id: 'veg-7', nameKey: 'spinach', price: 20, unit: '1 bunch', imageType: 'spinach', imageUrl: 'https://images.unsplash.com/photo-1576045057995-568f588f82fb?w=400&auto=format&fit=crop&q=80' },
+    { id: 'veg-8', nameKey: 'carrot', price: 40, unit: '1 kg', imageType: 'carrot', imageUrl: 'https://images.unsplash.com/photo-1598170845058-32b9d6a5da37?w=400&auto=format&fit=crop&q=80' }
   ];
+
 
   // Mock past orders
   const [ordersList, setOrdersList] = useState([
@@ -451,58 +452,20 @@ export default function CustomerDashboard() {
                         const cartItem = cart.find(item => item.id === product.id);
                         
                         return (
-                          <div key={product.id} className="relative rounded-2xl bg-white border border-neutral-100 p-3 shadow-3xs flex flex-col justify-between hover:shadow-xs transition">
+                          <div key={product.id} className="relative rounded-2xl bg-white border border-neutral-100 p-3.5 shadow-3xs flex flex-col items-center justify-center hover:shadow-xs transition">
                             
-                            {/* Wishlist button */}
-                            <button
-                              type="button"
-                              onClick={() => toggleWishlist(product.id)}
-                              className="absolute top-2.5 right-2.5 z-10 p-1.5 rounded-full bg-white/90 shadow-3xs text-neutral-400 hover:text-red-500 transition active:scale-[0.9]"
-                            >
-                              <Heart className={`h-4 w-4 ${isInWishlist ? 'fill-red-500 text-red-500' : 'text-neutral-400'}`} />
-                            </button>
-
-                            {/* Product Image */}
-                            <div className="mb-2 shrink-0">
-                              {renderProductImage(product.imageType)}
+                            {/* Product Image (Real Image) */}
+                            <div className="w-full h-28 overflow-hidden rounded-xl bg-neutral-50 mb-3 flex items-center justify-center shrink-0">
+                              <img 
+                                src={product.imageUrl} 
+                                alt={t.products[product.nameKey]} 
+                                className="w-full h-full object-cover rounded-xl"
+                              />
                             </div>
 
-                            {/* Product Details */}
-                            <div>
-                              <h4 className="text-[11px] font-extrabold text-neutral-800 truncate leading-snug">{t.products[product.nameKey]}</h4>
-                              <p className="text-[9px] text-neutral-400 font-semibold">{product.unit}</p>
-                              
-                              <div className="flex items-center justify-between mt-2">
-                                <span className="text-xs font-black text-neutral-900">₹{product.price}</span>
-                                
-                                {cartItem ? (
-                                  <div className="flex items-center space-x-1 bg-primary-50 rounded-lg p-0.5 border border-primary-200">
-                                    <button
-                                      type="button"
-                                      onClick={() => updateQuantity(product.id, -1)}
-                                      className="h-5 w-5 flex items-center justify-center rounded bg-white text-primary-850 hover:bg-neutral-100 transition"
-                                    >
-                                      <Minus className="h-3 w-3" />
-                                    </button>
-                                    <span className="text-[10px] font-extrabold text-primary-950 w-3 text-center">{cartItem.quantity}</span>
-                                    <button
-                                      type="button"
-                                      onClick={() => updateQuantity(product.id, 1)}
-                                      className="h-5 w-5 flex items-center justify-center rounded bg-white text-primary-850 hover:bg-neutral-100 transition"
-                                    >
-                                      <Plus className="h-3 w-3" />
-                                    </button>
-                                  </div>
-                                ) : (
-                                  <button
-                                    type="button"
-                                    onClick={() => addToCart(product)}
-                                    className="flex h-6 w-6 items-center justify-center rounded-lg bg-primary-100 text-primary-800 hover:bg-primary-850 hover:text-white transition active:scale-[0.93]"
-                                  >
-                                    <Plus className="h-4 w-4" />
-                                  </button>
-                                )}
-                              </div>
+                            {/* Product Name */}
+                            <div className="text-center w-full">
+                              <h4 className="text-xs font-black text-neutral-800 leading-snug truncate">{t.products[product.nameKey]}</h4>
                             </div>
 
                           </div>
