@@ -3,12 +3,7 @@ import { Routes, Route, Navigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import Login from '../pages/auth/Login';
 import Register from '../pages/auth/Register';
-
-const CustomerDashboard = () => (
-  <div className="p-8">
-    <h1 className="text-2xl font-bold text-primary-600">Customer Dashboard</h1>
-  </div>
-);
+import CustomerDashboard from '../pages/customer/CustomerDashboard';
 
 const VendorDashboard = () => (
   <div className="p-8">
