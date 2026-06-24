@@ -51,7 +51,7 @@ export default function Login() {
     dispatch(loginStart());
 
     try {
-      const response = await axios.post('/api/auth/login', { phone, password });
+      const response = await axios.post(`${import.meta.env.VITE_API_URL}/auth/login`, { phone, password });
       if (response.data.status === 'success') {
         const { user, accessToken } = response.data.data;
         

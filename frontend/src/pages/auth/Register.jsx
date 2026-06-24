@@ -76,7 +76,7 @@ export default function Register() {
         pincode,
       };
 
-      const response = await axios.post('/api/auth/register', payload);
+      const response = await axios.post(`${import.meta.env.VITE_API_URL}/auth/register`, payload);
       
       if (response.data.status === 'success') {
         // Redirect to login page on success
