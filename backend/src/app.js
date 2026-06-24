@@ -15,7 +15,7 @@ const app = express();
 // Global Middlewares
 app.use(helmet());
 app.use(cors({
-  origin: '*', // Adjust for production environments
+  origin: process.env.FRONTEND_URL || '*',
   credentials: true,
 }));
 app.use(morgan('dev'));
