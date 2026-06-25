@@ -153,3 +153,29 @@ export const getTractorModels = (brandName, brandImageUrl) => {
   
   return models;
 };
+
+export const tractorPartsCategories = [
+  { id: 'part-engine', nameHi: 'इंजन पार्ट्स (Engine Parts)', nameEn: 'Engine Parts', emoji: '🔧', imageUrl: '/tractors/parts/engine_parts.png' },
+  { id: 'part-clutch', nameHi: 'क्लच पार्ट्स (Clutch Parts)', nameEn: 'Clutch Parts', emoji: '⚙️', imageUrl: '/tractors/parts/clutch_parts.png' },
+  { id: 'part-brake', nameHi: 'ब्रेक पार्ट्स (Brake Parts)', nameEn: 'Brake Parts', emoji: '🛞', imageUrl: '/tractors/parts/brake_parts.png' },
+  { id: 'part-steering', nameHi: 'स्टीयरिंग पार्ट्स (Steering Parts)', nameEn: 'Steering Parts', emoji: '🚜', imageUrl: '/tractors/parts/steering_parts.png' },
+  { id: 'part-electrical', nameHi: 'इलेक्ट्रिकल पार्ट्स (Electrical Parts)', nameEn: 'Electrical Parts', emoji: '💡', imageUrl: '/tractors/parts/electrical_parts.png' },
+  { id: 'part-oil', nameHi: 'ऑयल और फिल्टर्स (Oil & Filters)', nameEn: 'Oil & Filters', emoji: '🛢️', imageUrl: '/tractors/parts/oil_filters.png' },
+  { id: 'part-hydraulic', nameHi: 'हाइड्रोलिक पार्ट्स (Hydraulic Parts)', nameEn: 'Hydraulic Parts', emoji: '🔩', imageUrl: '/tractors/parts/hydraulic_parts.png' },
+  { id: 'part-lights', nameHi: 'लाइट्स और एक्सेसरीज़ (Lights & Accessories)', nameEn: 'Lights & Accessories', emoji: '🚦', imageUrl: '/tractors/parts/lights_accessories.png' },
+  { id: 'part-seat', nameHi: 'सीट और बॉडी पार्ट्स (Seat & Body Parts)', nameEn: 'Seat & Body Parts', emoji: '🪑', imageUrl: '/tractors/parts/seat_body.png' },
+  { id: 'part-tyres', nameHi: 'टायर और व्हील्स (Tyres & Wheels)', nameEn: 'Tyres & Wheels', emoji: '🛞', imageUrl: '/tractors/parts/tyres_wheels.png' }
+];
+
+export const enginePartsData = [
+  { id: 'ep-air-filter', nameHi: 'एयर फ़िल्टर', nameEn: 'Air Filter', imageUrl: '/tractors/parts/engine/air_filter.png', price: 850, stock: 12 },
+  { id: 'ep-oil-filter', nameHi: 'ऑयल फ़िल्टर', nameEn: 'Oil Filter', imageUrl: '/tractors/parts/engine/oil_filter.png', price: 450, stock: 18 },
+  { id: 'ep-fuel-filter', nameHi: 'फ्यूल फ़िल्टर', nameEn: 'Fuel Filter', imageUrl: '/tractors/parts/engine/fuel_filter.png', price: 650, stock: 10 },
+  { id: 'ep-piston-kit', nameHi: 'पिस्टन किट', nameEn: 'Piston Kit', imageUrl: '/tractors/parts/engine/piston_kit.png', price: 3800, stock: 5 },
+  { id: 'ep-cylinder-kit', nameHi: 'सिलेंडर किट', nameEn: 'Cylinder Kit', imageUrl: '/tractors/parts/engine/cylinder_kit.png', price: 7200, stock: 3 },
+  { id: 'ep-gasket-kit', nameHi: 'गैस्केट किट', nameEn: 'Gasket Kit', imageUrl: '/tractors/parts/engine/gasket_kit.png', price: 1100, stock: 8 },
+  { id: 'ep-connecting-rod', nameHi: 'कनेक्टिंग रॉड', nameEn: 'Connecting Rod', imageUrl: '/tractors/parts/engine/connecting_rod.png', price: 2400, stock: 6 },
+  { id: 'ep-crankshaft', nameHi: 'क्रैंकशाफ्ट', nameEn: 'Crankshaft', imageUrl: '/tractors/parts/engine/crankshaft.png', price: 9500, stock: 4 }
+];
+
+

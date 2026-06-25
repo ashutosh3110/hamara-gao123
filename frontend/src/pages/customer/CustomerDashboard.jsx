@@ -7,24 +7,28 @@ import {
   Bell, 
   Search, 
   SlidersHorizontal, 
-  ArrowRight, 
-  Truck, 
-  Percent, 
-  ShieldCheck, 
-  Heart, 
   Plus, 
   Minus, 
   Trash2, 
-  Clipboard, 
-  ShoppingCart, 
   User, 
   LogOut, 
   Globe,
   ArrowLeft
 } from 'lucide-react';
 import { logout } from '@/redux/slices/authSlice';
-import { getTractorModels } from '../../data/tractorModels';
 
+// Import modular sub-components
+import ProductImage from './components/ProductImage';
+import TractorBrandsView from './components/TractorBrandsView';
+import TractorModelsView from './components/TractorModelsView';
+import TractorPartsView from './components/TractorPartsView';
+import EnginePartsView from './components/EnginePartsView';
+import PartDetailView from './components/PartDetailView';
+import VegetablesCategoryView from './components/VegetablesCategoryView';
+import CategoriesGrid from './components/CategoriesGrid';
+import TrustBadges from './components/TrustBadges';
+import BestSellingProducts from './components/BestSellingProducts';
+import BottomNavigation from './components/BottomNavigation';
 
 const localTranslations = {
   hi: {
@@ -43,7 +47,7 @@ const localTranslations = {
       animalFood: "पशु आहार",
       animalFoodSub: "आपके पशुओं के लिए पौष्टिक भोजन",
       machinery: "मशीनरी",
-      machinerySub: "कृषि मशीनरी और उपकरण",
+      machinerySub: "कृषि मशीनरी & उपकरण",
       bulkOrder: "थोक आर्डर",
       bulkOrderSub: "थोक ऑर्डर करें और शानदार छूट पाएं",
       orderNow: "अभी आर्डर करें"
@@ -185,7 +189,9 @@ export default function CustomerDashboard() {
   const [activeTab, setActiveTab] = useState('home'); // home, orders, cart, wishlist, profile
   const [currentCategory, setCurrentCategory] = useState(null); // null or 'vegetables'
   const [selectedBrand, setSelectedBrand] = useState(null);
-
+  const [selectedModel, setSelectedModel] = useState(null);
+  const [selectedPartCategory, setSelectedPartCategory] = useState(null);
+  const [selectedPart, setSelectedPart] = useState(null);
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -267,7 +273,6 @@ export default function CustomerDashboard() {
     { id: 'trac-30', name: 'Branson Tractors', imageUrl: '/tractors/powertrac_tractor.png', tagHi: 'सर्वश्रेष्ठ वारंटी', tagEn: 'Best Warranty' }
   ];
 
-
   // Mock past orders
   const [ordersList, setOrdersList] = useState([
     { id: 'HG-8931', date: '2026-06-23', items: 'IFFCO DAP Fertilizer x 1', total: 1350, status: 'shipping' },
@@ -288,7 +293,7 @@ export default function CustomerDashboard() {
   };
 
   const addToCart = (product) => {
-    const existing = cart.find(item => item.id === product.id);
+    const existing = cart.find(item => item.id === product.id || (product.isCustomPart && item.id === product.id));
     if (existing) {
       setCart(cart.map(item => item.id === product.id ? { ...item, quantity: item.quantity + 1 } : item));
     } else {
@@ -313,116 +318,6 @@ export default function CustomerDashboard() {
 
   const getCartItemsCount = () => {
     return cart.reduce((count, item) => count + item.quantity, 0);
-  };
-
-  // Product Vector SVG Renderers
-  const renderProductImage = (type) => {
-    switch (type) {
-      case 'tomatoes':
-        return (
-          <svg viewBox="0 0 100 100" className="w-full h-24 object-contain bg-red-50 rounded-xl p-1">
-            <circle cx="35" cy="55" r="18" fill="#ea4335" />
-            <path d="M35,37 Q37,33 35,35" stroke="#34a853" strokeWidth="3" strokeLinecap="round" />
-            <circle cx="65" cy="55" r="18" fill="#ea4335" />
-            <path d="M65,37 Q67,33 65,35" stroke="#34a853" strokeWidth="3" strokeLinecap="round" />
-            <circle cx="50" cy="65" r="20" fill="#c5221f" />
-            <path d="M50,45 C48,42 52,42 50,45 Z" fill="#34a853" stroke="#34a85a" strokeWidth="2" />
-          </svg>
-        );
-      case 'potatoes':
-        return (
-          <svg viewBox="0 0 100 100" className="w-full h-24 object-contain bg-amber-50 rounded-xl p-1">
-            <ellipse cx="50" cy="55" rx="26" ry="18" fill="#d2b48c" />
-            <circle cx="40" cy="48" r="1.5" fill="#8b7355" />
-            <circle cx="62" cy="52" r="1.5" fill="#8b7355" />
-            <circle cx="52" cy="62" r="1.5" fill="#8b7355" />
-          </svg>
-        );
-      case 'onion':
-        return (
-          <svg viewBox="0 0 100 100" className="w-full h-24 object-contain bg-pink-50 rounded-xl p-1">
-            <path d="M50,20 C32,45 32,75 50,80 C68,75 68,45 50,20 Z" fill="#d06080" stroke="#a03050" strokeWidth="1.5" />
-            <path d="M50,20 L50,15" stroke="#8b9a47" strokeWidth="3" strokeLinecap="round" />
-          </svg>
-        );
-      case 'ladyfinger':
-        return (
-          <svg viewBox="0 0 100 100" className="w-full h-24 object-contain bg-green-50 rounded-xl p-1">
-            <path d="M30,80 C40,75 75,30 80,25 C80,25 78,28 72,36 C65,45 35,75 30,80 Z" fill="#4caf50" />
-            <path d="M30,80 Q25,85 22,83" stroke="#388e3c" strokeWidth="3" strokeLinecap="round" />
-          </svg>
-        );
-      case 'cauliflower':
-        return (
-          <svg viewBox="0 0 100 100" className="w-full h-24 object-contain bg-emerald-50 rounded-xl p-1">
-            <circle cx="35" cy="50" r="18" fill="#4caf50" />
-            <circle cx="65" cy="50" r="18" fill="#4caf50" />
-            <circle cx="50" cy="65" r="18" fill="#388e3c" />
-            <circle cx="50" cy="45" r="20" fill="#f5f5f5" />
-            <circle cx="43" cy="38" r="8" fill="#e0e0e0" />
-            <circle cx="58" cy="40" r="8" fill="#e0e0e0" />
-          </svg>
-        );
-      case 'greenpeas':
-        return (
-          <svg viewBox="0 0 100 100" className="w-full h-24 object-contain bg-lime-50 rounded-xl p-1">
-            <path d="M15,50 Q50,70 85,50 Q50,30 15,50 Z" fill="#8bc34a" />
-            <circle cx="35" cy="50" r="8" fill="#4caf50" />
-            <circle cx="50" cy="50" r="8" fill="#4caf50" />
-            <circle cx="65" cy="50" r="8" fill="#4caf50" />
-          </svg>
-        );
-      case 'spinach':
-        return (
-          <svg viewBox="0 0 100 100" className="w-full h-24 object-contain bg-green-50 rounded-xl p-1">
-            <path d="M50,80 Q35,45 35,25 Q50,15 65,25 Q65,45 50,80 Z" fill="#4caf50" />
-            <line x1="50" y1="80" x2="50" y2="25" stroke="#2e7d32" strokeWidth="2" />
-            <line x1="50" y1="60" x2="40" y2="45" stroke="#2e7d32" strokeWidth="1.5" />
-            <line x1="50" y1="50" x2="60" y2="35" stroke="#2e7d32" strokeWidth="1.5" />
-          </svg>
-        );
-      case 'carrot':
-        return (
-          <svg viewBox="0 0 100 100" className="w-full h-24 object-contain bg-orange-50 rounded-xl p-1">
-            <path d="M50,85 Q65,35 70,25 C70,25 60,22 50,25 Q35,35 50,85 Z" fill="#ff9800" />
-            <path d="M60,25 Q65,10 70,12" stroke="#4caf50" strokeWidth="3" fill="none" />
-            <path d="M55,25 Q52,8 48,10" stroke="#4caf50" strokeWidth="3" fill="none" />
-          </svg>
-        );
-      case 'dap':
-        return (
-          <svg viewBox="0 0 100 100" className="w-full h-24 object-contain bg-neutral-50 rounded-xl p-1">
-            <path d="M30,20 C30,15 40,12 50,12 C60,12 70,15 70,20 C70,28 66,75 62,85 C58,88 42,88 38,85 C34,75 30,28 30,20 Z" fill="#34a85a" stroke="#1b5730" strokeWidth="1.5" />
-            <ellipse cx="50" cy="20" rx="20" ry="4" fill="#fbbc05" />
-            <text x="50" y="42" fontFamily="sans-serif" fontSize="9" fontWeight="bold" fill="#fff" textAnchor="middle">IFFCO</text>
-            <text x="50" y="55" fontFamily="sans-serif" fontSize="12" fontWeight="extrabold" fill="#fbbc05" textAnchor="middle">DAP</text>
-            <text x="50" y="68" fontFamily="sans-serif" fontSize="7" fontWeight="bold" fill="#fff" textAnchor="middle">18-46-0</text>
-          </svg>
-        );
-      case 'nanoUrea':
-        return (
-          <svg viewBox="0 0 100 100" className="w-full h-24 object-contain bg-neutral-50 rounded-xl p-1">
-            <rect x="35" y="32" width="30" height="50" rx="6" fill="#fff" stroke="#ccc" strokeWidth="1.5" />
-            <rect x="42" y="22" width="16" height="10" fill="#fff" stroke="#ccc" strokeWidth="1.5" />
-            <rect x="40" y="16" width="20" height="7" fill="#34a85a" rx="1.5" />
-            <rect x="36" y="42" width="28" height="25" fill="#34a85a" />
-            <text x="50" y="52" fontFamily="sans-serif" fontSize="6" fontWeight="bold" fill="#fbbc05" textAnchor="middle">IFFCO</text>
-            <text x="50" y="60" fontFamily="sans-serif" fontSize="6" fontWeight="extrabold" fill="#fff" textAnchor="middle">NANO UREA</text>
-          </svg>
-        );
-      case 'wheat':
-        return (
-          <svg viewBox="0 0 100 100" className="w-full h-24 object-contain bg-neutral-50 rounded-xl p-1">
-            <ellipse cx="50" cy="70" rx="35" ry="18" fill="#d2b48c" stroke="#cfae80" strokeWidth="1" />
-            <path d="M20,70 Q50,25 80,70 Z" fill="#f4c430" />
-            <circle cx="45" cy="55" r="2.5" fill="#fff" opacity="0.6" />
-            <circle cx="55" cy="58" r="2.5" fill="#fff" opacity="0.6" />
-            <circle cx="38" cy="62" r="2" fill="#fff" opacity="0.6" />
-          </svg>
-        );
-      default:
-        return null;
-    }
   };
 
   return (
@@ -451,63 +346,14 @@ export default function CustomerDashboard() {
           {activeTab === 'home' && (
             <div className="flex-1 flex flex-col overflow-hidden">
               
-              {/* Conditional rendering for Vegetables category view vs Main dashboard */}
+              {/* Conditional rendering for Vegetables category view vs Tractor category view vs Main dashboard */}
               {currentCategory === 'vegetables' ? (
-                <div className="flex-1 flex flex-col overflow-hidden bg-neutral-50">
-                  
-                  {/* Category Header */}
-                  <div className="flex items-center space-x-3 px-4 py-2 shrink-0 border-b border-neutral-100 bg-white">
-                    <button
-                      type="button"
-                      onClick={() => setCurrentCategory(null)}
-                      className="p-1.5 rounded-lg text-neutral-600 hover:bg-neutral-100 transition active:scale-[0.95]"
-                    >
-                      <ArrowLeft className="h-5 w-5 text-neutral-700" />
-                    </button>
-                    <div>
-                      <h2 className="text-base font-black text-neutral-900 leading-snug">{t.categories.vegetables}</h2>
-                      <p className="text-[10px] text-emerald-650 font-bold leading-none">{t.categories.vegetablesSub}</p>
-                    </div>
-                  </div>
-
-                  {/* Search Bar inside Category */}
-                  <div className="px-4 py-2 shrink-0">
-                    <div className="flex h-10 items-center rounded-xl border border-neutral-200 bg-white px-3 shadow-3xs">
-                      <Search className="h-4 w-4 text-neutral-400" />
-                      <input 
-                        type="text"
-                        placeholder={t.searchPlaceholder}
-                        className="flex-1 pl-2 text-xs font-semibold text-neutral-800 placeholder-neutral-400 outline-none bg-transparent"
-                      />
-                    </div>
-                  </div>
-
-                  {/* Vegetables Grid Container */}
-                  <div className="flex-1 overflow-y-auto px-4 pb-4 space-y-3.5">
-                    <div className="grid grid-cols-2 gap-3.5 pt-1">
-                      {vegetableProducts.map(product => (
-                        <div key={product.id} className="relative rounded-2xl bg-white border border-neutral-100 p-3.5 shadow-3xs flex flex-col items-center justify-center hover:shadow-xs transition">
-                          
-                          {/* Product Image (Real Image) */}
-                          <div className="w-full h-28 overflow-hidden rounded-xl bg-neutral-50 mb-3 flex items-center justify-center shrink-0">
-                            <img 
-                              src={product.imageUrl} 
-                              alt={t.products[product.nameKey]} 
-                              className="w-full h-full object-cover rounded-xl"
-                            />
-                          </div>
-
-                          {/* Product Name */}
-                          <div className="text-center w-full">
-                            <h4 className="text-xs font-black text-neutral-800 leading-snug truncate">{t.products[product.nameKey]}</h4>
-                          </div>
-
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-
-                </div>
+                <VegetablesCategoryView
+                  vegetableProducts={vegetableProducts}
+                  lang={lang}
+                  t={t}
+                  onBack={() => setCurrentCategory(null)}
+                />
               ) : currentCategory === 'tractor' ? (
                 <div className="flex-1 flex flex-col overflow-hidden bg-neutral-50">
                   
@@ -516,7 +362,13 @@ export default function CustomerDashboard() {
                     <button
                       type="button"
                       onClick={() => {
-                        if (selectedBrand) {
+                        if (selectedPart) {
+                          setSelectedPart(null);
+                        } else if (selectedPartCategory) {
+                          setSelectedPartCategory(null);
+                        } else if (selectedModel) {
+                          setSelectedModel(null);
+                        } else if (selectedBrand) {
                           setSelectedBrand(null);
                         } else {
                           setCurrentCategory(null);
@@ -528,131 +380,94 @@ export default function CustomerDashboard() {
                     </button>
                     <div>
                       <h2 className="text-base font-black text-neutral-900 leading-snug">
-                        {selectedBrand 
-                          ? (lang === 'hi' ? `${selectedBrand.name} के मॉडल` : `${selectedBrand.name} Models`)
-                          : (lang === 'hi' ? 'ट्रैक्टर केंद्र (Tractor Hub)' : 'Tractor Hub')
+                        {selectedPart
+                          ? (lang === 'hi' ? `${selectedPart.nameHi}` : `${selectedPart.nameEn}`)
+                          : selectedPartCategory
+                            ? (lang === 'hi' ? `${selectedPartCategory.nameHi}` : `${selectedPartCategory.nameEn}`)
+                            : selectedModel
+                              ? (lang === 'hi' ? `${selectedModel.name} के पार्ट्स` : `${selectedModel.name} Parts`)
+                              : selectedBrand 
+                                ? (lang === 'hi' ? `${selectedBrand.name} के मॉडल` : `${selectedBrand.name} Models`)
+                                : (lang === 'hi' ? 'ट्रैक्टर केंद्र (Tractor Hub)' : 'Tractor Hub')
                         }
                       </h2>
                       <p className="text-[10px] text-emerald-650 font-bold leading-none">
-                        {selectedBrand
-                          ? (lang === 'hi' ? 'शीर्ष 10 मॉडल' : 'Top 10 Models')
-                          : (lang === 'hi' ? 'आपके खेत के लिए सर्वश्रेष्ठ ट्रैक्टर' : 'Best Tractors for Your Farming Needs')
+                        {selectedPart
+                          ? (lang === 'hi' ? 'पार्ट्स विवरण' : 'Spare Part Details')
+                          : selectedPartCategory
+                            ? (lang === 'hi' ? 'उपलब्ध स्पेयर पार्ट्स' : 'Available Spare Parts')
+                            : selectedModel
+                              ? (lang === 'hi' ? 'स्पेयर पार्ट्स श्रेणियां' : 'Spare Parts Categories')
+                              : selectedBrand
+                                ? (lang === 'hi' ? 'शीर्ष 10 मॉडल' : 'Top 10 Models')
+                                : (lang === 'hi' ? 'आपके खेत के लिए सर्वश्रेष्ठ ट्रैक्टर' : 'Best Tractors for Your Farming Needs')
                         }
                       </p>
                     </div>
                   </div>
 
-                  {selectedBrand ? (
-                    /* Tractor Models Detail View (Simple 2-Column Grid) */
-                    <div className="flex-1 overflow-y-auto px-4 pb-4 space-y-3.5 scrollbar-none">
-                      <div className="grid grid-cols-2 gap-3.5 pt-3">
-                        {getTractorModels(selectedBrand.name, selectedBrand.imageUrl).map(model => (
-                          <div 
-                            key={model.id} 
-                            className="relative rounded-2xl bg-white border border-neutral-100 p-3.5 shadow-3xs flex flex-col items-center justify-between hover:shadow-xs hover:border-emerald-200 transition duration-200"
-                          >
-                            
-                            {/* Tractor Model Image */}
-                            <div className="w-full h-24 overflow-hidden rounded-xl bg-white mt-4 mb-2 flex items-center justify-center shrink-0">
-                              <img 
-                                src={model.imageUrl} 
-                                alt={model.name} 
-                                className="w-full h-full object-contain rounded-xl p-0.5"
-                              />
-                            </div>
-
-                            {/* Tractor Model Name */}
-                            <div className="text-center w-full pt-1 border-t border-neutral-50">
-                              <h4 className="text-xs font-black text-neutral-800 leading-snug truncate">{model.name}</h4>
-                            </div>
-
-                          </div>
-                        ))}
-                      </div>
-                    </div>
-                  ) : (
-                    /* Tractor Brands Grid View */
-                    <div className="flex-1 flex flex-col overflow-hidden bg-neutral-50">
-                      {/* Farmer Campaign Banner */}
-                      <div className="mx-4 mt-3 rounded-2xl bg-gradient-to-r from-emerald-600 to-green-800 p-5 text-white shadow-xs relative overflow-hidden shrink-0">
-                        <div className="absolute -right-4 -bottom-4 opacity-10 pointer-events-none">
-                          <svg viewBox="0 0 100 100" className="w-24 h-24 text-white fill-current">
-                            <path d="M10,80 Q50,20 90,80 Z" />
-                          </svg>
-                        </div>
-                        <span className="inline-block rounded-full bg-amber-400 px-2.5 py-1 text-[9px] font-black text-emerald-950 uppercase tracking-wider mb-2">
-                          🚜 PM-किसान योजना सब्सिडी स्वीकृत
-                        </span>
-                        <h3 className="text-xs sm:text-sm font-black leading-snug">
-                          {lang === 'hi' ? 'खोजें अपने बजट का सही साथी' : 'Find the Perfect Tractor for Your Budget'}
+                  {selectedPart ? (
+                    <PartDetailView
+                      part={selectedPart}
+                      brand={selectedBrand}
+                      model={selectedModel}
+                      lang={lang}
+                      addToCart={addToCart}
+                      onBuyNow={(part, qty) => {
+                        const isHi = lang === 'hi';
+                        alert(
+                          isHi 
+                            ? `ऑर्डर सफलतापूर्वक सबमिट किया गया! धन्यवाद!` 
+                            : `Order submitted successfully! Thank you for buying!`
+                        );
+                        // Add to ordersList
+                        const newOrder = {
+                          id: `HG-${Math.floor(1000 + Math.random() * 9000)}`,
+                          date: new Date().toISOString().split('T')[0],
+                          items: `${isHi ? part.nameHi : part.nameEn} x ${qty}`,
+                          total: part.price * qty,
+                          status: 'pending'
+                        };
+                        setOrdersList([newOrder, ...ordersList]);
+                        setSelectedPart(null);
+                        setSelectedPartCategory(null);
+                        setActiveTab('orders');
+                      }}
+                    />
+                  ) : selectedPartCategory ? (
+                    selectedPartCategory.id === 'part-engine' ? (
+                      <EnginePartsView 
+                        lang={lang} 
+                        onSelectPart={setSelectedPart}
+                      />
+                    ) : (
+                      <div className="flex-1 flex flex-col items-center justify-center p-6 text-center bg-white rounded-2xl m-4 border border-neutral-100 shadow-3xs">
+                        <span className="text-4xl mb-3">{selectedPartCategory.emoji}</span>
+                        <h3 className="text-sm font-black text-neutral-800">
+                          {lang === 'hi' ? `${selectedPartCategory.nameHi} जल्द आ रहा है!` : `${selectedPartCategory.nameEn} Coming Soon!`}
                         </h3>
-                        <p className="text-[10px] text-emerald-50 mt-1.5 font-bold">
-                          {lang === 'hi' ? 'सरकारी योजनाओं के अंतर्गत पाएं 50% तक की छूट' : 'Get up to 50% Government Subsidy'}
+                        <p className="text-xs text-neutral-400 mt-1 font-semibold">
+                          {lang === 'hi' ? 'हम जल्द ही इन स्पेयर पार्ट्स को जोड़ रहे हैं।' : 'We are adding these spare parts very soon.'}
                         </p>
                       </div>
-
-                      {/* Search Bar inside Category */}
-                      <div className="px-4 py-2.5 shrink-0">
-                        <div className="flex h-10 items-center rounded-xl border border-neutral-200 bg-white px-3 shadow-3xs">
-                          <Search className="h-4 w-4 text-neutral-400" />
-                          <input 
-                            type="text"
-                            placeholder={t.searchPlaceholder}
-                            className="flex-1 pl-2 text-xs font-semibold text-neutral-800 placeholder-neutral-400 outline-none bg-transparent"
-                          />
-                        </div>
-                      </div>
-
-                      {/* Farmer Filter Tabs */}
-                      <div className="flex space-x-2 overflow-x-auto px-4 pb-2.5 scrollbar-none shrink-0">
-                        <button className="px-3.5 py-1 rounded-full bg-emerald-800 text-white text-[10px] font-extrabold shadow-3xs shrink-0 transition">
-                          {lang === 'hi' ? 'सभी ब्रांड' : 'All Brands'}
-                        </button>
-                        <button className="px-3.5 py-1 rounded-full bg-white border border-neutral-200 text-neutral-600 hover:bg-neutral-50 text-[10px] font-extrabold shrink-0 transition">
-                          {lang === 'hi' ? 'सब्सिडी वाले' : 'Govt Subsidy Approved'}
-                        </button>
-                        <button className="px-3.5 py-1 rounded-full bg-white border border-neutral-200 text-neutral-600 hover:bg-neutral-50 text-[10px] font-extrabold shrink-0 transition">
-                          {lang === 'hi' ? 'हैवी ड्यूटी' : 'Heavy Duty'}
-                        </button>
-                        <button className="px-3.5 py-1 rounded-full bg-white border border-neutral-200 text-neutral-600 hover:bg-neutral-50 text-[10px] font-extrabold shrink-0 transition">
-                          {lang === 'hi' ? 'किराये पर उपलब्ध' : 'Available for Rent'}
-                        </button>
-                      </div>
-
-                      {/* Tractor Grid Container */}
-                      <div className="flex-1 overflow-y-auto px-4 pb-4 space-y-3.5 scrollbar-none">
-                        <div className="grid grid-cols-2 gap-3.5 pt-1">
-                          {tractorProducts.map(product => (
-                            <div 
-                              key={product.id} 
-                              onClick={() => setSelectedBrand(product)}
-                              className="relative cursor-pointer rounded-2xl bg-white border border-neutral-100 p-3 shadow-3xs flex flex-col items-center justify-between hover:shadow-xs hover:border-emerald-200 hover:scale-[1.02] active:scale-[0.98] transition-all duration-200"
-                            >
-                              
-                              {/* Farmer benefit Badge */}
-                              <span className="absolute top-2.5 left-2.5 z-10 rounded bg-emerald-50 border border-emerald-100 px-1.5 py-0.5 text-[8px] font-black text-emerald-800 uppercase tracking-wider scale-[0.9] origin-left">
-                                {lang === 'hi' ? product.tagHi : product.tagEn}
-                              </span>
-
-                              {/* Tractor Image (Real Studio Shot) */}
-                              <div className="w-full h-24 overflow-hidden rounded-xl bg-white mt-4 mb-2 flex items-center justify-center shrink-0">
-                                <img 
-                                  src={product.imageUrl} 
-                                  alt={product.name} 
-                                  className="w-full h-full object-contain rounded-xl p-0.5"
-                                />
-                              </div>
-
-                              {/* Tractor Name */}
-                              <div className="text-center w-full pt-1 border-t border-neutral-50">
-                                <h4 className="text-xs font-black text-neutral-800 leading-snug truncate">{product.name}</h4>
-                              </div>
-
-                            </div>
-                          ))}
-                        </div>
-                      </div>
-                    </div>
+                    )
+                  ) : selectedModel ? (
+                    <TractorPartsView 
+                      lang={lang} 
+                      onSelectPartCategory={setSelectedPartCategory}
+                    />
+                  ) : selectedBrand ? (
+                    <TractorModelsView
+                      selectedBrand={selectedBrand}
+                      lang={lang}
+                      onSelectModel={setSelectedModel}
+                    />
+                  ) : (
+                    <TractorBrandsView
+                      tractorProducts={tractorProducts}
+                      lang={lang}
+                      onSelectBrand={setSelectedBrand}
+                    />
                   )}
                 </div>
               ) : (
@@ -709,238 +524,30 @@ export default function CustomerDashboard() {
                   {/* Scrollable Dashboard Body */}
                   <div className="flex-1 overflow-y-auto px-4 space-y-4 pb-4">
                     
-                    {/* 2-Column Categories Grid */}
-                    <div className="grid grid-cols-2 gap-3.5">
-                      
-                      {/* Category: Vegetables (Clickable) */}
-                      <div 
-                        onClick={() => { setCurrentCategory('vegetables'); setSelectedBrand(null); }}
-                        className="flex flex-col justify-between rounded-2xl bg-white border border-neutral-100 p-3.5 shadow-2xs hover:shadow-xs transition cursor-pointer"
-                      >
-                        <div>
-                          <h3 className="text-sm font-extrabold text-primary-950">{t.categories.vegetables}</h3>
-                          <p className="text-[10px] text-neutral-400 font-semibold leading-tight mt-0.5">{t.categories.vegetablesSub}</p>
-                        </div>
-                        <div className="flex items-end justify-between mt-2">
-                          <button className="flex h-7 w-7 items-center justify-center rounded-full bg-primary-100 text-primary-800 hover:bg-primary-200 transition active:scale-[0.95]">
-                            <ArrowRight className="h-4 w-4" />
-                          </button>
-                          <svg viewBox="0 0 120 100" className="w-16 h-12 object-contain">
-                            <rect x="20" y="55" width="80" height="30" rx="4" fill="#a05a2c" />
-                            <line x1="30" y1="55" x2="30" y2="85" stroke="#783f04" strokeWidth="2.5" />
-                            <line x1="50" y1="55" x2="50" y2="85" stroke="#783f04" strokeWidth="2.5" />
-                            <line x1="70" y1="55" x2="70" y2="85" stroke="#783f04" strokeWidth="2.5" />
-                            <circle cx="40" cy="45" r="14" fill="#ea4335" />
-                            <circle cx="43" cy="40" r="3" fill="#34a85a" />
-                            <path d="M75,30 Q80,50 70,55" stroke="#ff9900" strokeWidth="6" strokeLinecap="round" />
-                            <circle cx="60" cy="40" r="15" fill="#34a85a" />
-                            <circle cx="70" cy="45" r="12" fill="#fbbc05" />
-                          </svg>
-                        </div>
-                      </div>
+                    {/* Categories Grid Component */}
+                    <CategoriesGrid
+                      lang={lang}
+                      t={t}
+                      onSelectCategory={(category) => {
+                        setCurrentCategory(category);
+                        setSelectedBrand(null);
+                        setSelectedModel(null);
+                        setSelectedPartCategory(null);
+                        setSelectedPart(null);
+                      }}
+                    />
 
-                      {/* Category: Tractor */}
-                      <div 
-                        onClick={() => { setCurrentCategory('tractor'); setSelectedBrand(null); }}
-                        className="flex flex-col justify-between rounded-2xl bg-white border border-neutral-100 p-3.5 shadow-2xs hover:shadow-xs transition cursor-pointer"
-                      >
-                        <div>
-                          <h3 className="text-sm font-extrabold text-primary-950">{t.categories.tractor}</h3>
-                          <p className="text-[10px] text-neutral-400 font-semibold leading-tight mt-0.5">{t.categories.tractorSub}</p>
-                        </div>
-                        <div className="flex items-end justify-between mt-2">
-                          <button className="flex h-7 w-7 items-center justify-center rounded-full bg-primary-100 text-primary-800 hover:bg-primary-200 transition active:scale-[0.95]">
-                            <ArrowRight className="h-4 w-4" />
-                          </button>
-                          <svg viewBox="0 0 120 100" className="w-16 h-12 object-contain">
-                            <rect x="50" y="35" width="40" height="25" fill="#34a85a" rx="2" />
-                            <rect x="30" y="45" width="30" height="15" fill="#34a85a" />
-                            <rect x="60" y="15" width="25" height="20" fill="none" stroke="#333" strokeWidth="2.5" rx="2" />
-                            <rect x="63" y="18" width="19" height="10" fill="#e0f7fa" />
-                            <line x1="45" y1="45" x2="45" y2="25" stroke="#333" strokeWidth="2.5" />
-                            <circle cx="42" cy="70" r="13" fill="#111" />
-                            <circle cx="42" cy="70" r="4" fill="#fff" />
-                            <circle cx="78" cy="65" r="19" fill="#111" />
-                            <circle cx="78" cy="65" r="7" fill="#fff" />
-                          </svg>
-                        </div>
-                      </div>
+                    {/* Trust Badges Component */}
+                    <TrustBadges t={t} />
 
-                      {/* Category: Fertilizer */}
-                      <div className="flex flex-col justify-between rounded-2xl bg-white border border-neutral-100 p-3.5 shadow-2xs hover:shadow-xs transition">
-                        <div>
-                          <h3 className="text-sm font-extrabold text-primary-950">{t.categories.fertilizer}</h3>
-                          <p className="text-[10px] text-neutral-400 font-semibold leading-tight mt-0.5">{t.categories.fertilizerSub}</p>
-                        </div>
-                        <div className="flex items-end justify-between mt-2">
-                          <button className="flex h-7 w-7 items-center justify-center rounded-full bg-primary-100 text-primary-800 hover:bg-primary-200 transition active:scale-[0.95]">
-                            <ArrowRight className="h-4 w-4" />
-                          </button>
-                          <svg viewBox="0 0 120 100" className="w-16 h-12 object-contain">
-                            <path d="M35,25 C35,20 45,15 60,15 C75,15 85,20 85,25 C85,35 80,75 75,85 C70,90 50,90 45,85 C40,75 35,35 35,25 Z" fill="#ddc5a2" stroke="#bda37e" strokeWidth="1.5" />
-                            <ellipse cx="60" cy="25" rx="23" ry="5" fill="#cfae80" />
-                            <path d="M60,40 C53,48 60,63 60,63 C60,63 67,48 60,40 Z" fill="#34a85a" />
-                            <text x="60" y="75" fontFamily="sans-serif" fontSize="8" fontWeight="bold" fill="#5c4033" textAnchor="middle">FERTILIZER</text>
-                          </svg>
-                        </div>
-                      </div>
-
-                      {/* Category: Animal Food */}
-                      <div className="flex flex-col justify-between rounded-2xl bg-white border border-neutral-100 p-3.5 shadow-2xs hover:shadow-xs transition">
-                        <div>
-                          <h3 className="text-sm font-extrabold text-primary-950">{t.categories.animalFood}</h3>
-                          <p className="text-[10px] text-neutral-400 font-semibold leading-tight mt-0.5">{t.categories.animalFoodSub}</p>
-                        </div>
-                        <div className="flex items-end justify-between mt-2">
-                          <button className="flex h-7 w-7 items-center justify-center rounded-full bg-primary-100 text-primary-800 hover:bg-primary-200 transition active:scale-[0.95]">
-                            <ArrowRight className="h-4 w-4" />
-                          </button>
-                          <svg viewBox="0 0 120 100" className="w-16 h-12 object-contain">
-                            <rect x="25" y="35" width="28" height="32" rx="14" fill="#f5f5f5" stroke="#ccc" strokeWidth="1" />
-                            <ellipse cx="39" cy="52" rx="11" ry="7" fill="#ffc0cb" />
-                            <circle cx="34" cy="49" r="1.5" fill="#333" />
-                            <circle cx="44" cy="49" r="1.5" fill="#333" />
-                            <circle cx="85" cy="55" r="13" fill="#f4b400" />
-                            <circle cx="94" cy="46" r="7" fill="#f4b400" />
-                            <polygon points="101,44 105,46 101,48" fill="#ff6d00" />
-                            <path d="M70,70 L90,70 L87,79 L73,79 Z" fill="#a05a2c" />
-                          </svg>
-                        </div>
-                      </div>
-
-                      {/* Category: Machinery */}
-                      <div className="flex flex-col justify-between rounded-2xl bg-white border border-neutral-100 p-3.5 shadow-2xs hover:shadow-xs transition">
-                        <div>
-                          <h3 className="text-sm font-extrabold text-primary-950">{t.categories.machinery}</h3>
-                          <p className="text-[10px] text-neutral-400 font-semibold leading-tight mt-0.5">{t.categories.machinerySub}</p>
-                        </div>
-                        <div className="flex items-end justify-between mt-2">
-                          <button className="flex h-7 w-7 items-center justify-center rounded-full bg-primary-100 text-primary-800 hover:bg-primary-200 transition active:scale-[0.95]">
-                            <ArrowRight className="h-4 w-4" />
-                          </button>
-                          <svg viewBox="0 0 120 100" className="w-16 h-12 object-contain">
-                            <line x1="25" y1="50" x2="95" y2="50" stroke="#777" strokeWidth="4" />
-                            <path d="M45,50 Q40,75 35,80" stroke="#ea4335" strokeWidth="3" fill="none" />
-                            <path d="M60,50 Q55,75 50,80" stroke="#ea4335" strokeWidth="3" fill="none" />
-                            <path d="M75,50 Q70,75 65,80" stroke="#ea4335" strokeWidth="3" fill="none" />
-                            <path d="M90,50 Q85,75 80,80" stroke="#ea4335" strokeWidth="3" fill="none" />
-                            <line x1="75" y1="50" x2="85" y2="25" stroke="#333" strokeWidth="3.5" />
-                          </svg>
-                        </div>
-                      </div>
-
-                      {/* Category: Bulk Order */}
-                      <div className="flex flex-col justify-between rounded-2xl bg-primary-50 border border-primary-100 p-3.5 shadow-2xs hover:shadow-xs transition">
-                        <div>
-                          <h3 className="text-sm font-extrabold text-primary-950">{t.categories.bulkOrder}</h3>
-                          <p className="text-[10px] text-neutral-505 font-semibold leading-tight mt-0.5">{t.categories.bulkOrderSub}</p>
-                        </div>
-                        <div className="flex items-end justify-between mt-2">
-                          <button className="flex h-6.5 px-3 items-center justify-center rounded-full bg-primary-800 text-[10px] font-bold text-white hover:bg-primary-900 transition active:scale-[0.95]">
-                            {t.categories.orderNow}
-                          </button>
-                          <svg viewBox="0 0 120 100" className="w-14 h-11 object-contain">
-                            <rect x="25" y="45" width="35" height="30" fill="#d2b48c" stroke="#b5a642" strokeWidth="1" rx="1" />
-                            <line x1="25" y1="60" x2="60" y2="60" stroke="#a05a2c" strokeWidth="1" />
-                            <rect x="62" y="48" width="30" height="27" fill="#cd853f" stroke="#b5a642" strokeWidth="1" rx="1" />
-                            <line x1="62" y1="62" x2="92" y2="62" stroke="#8b4513" strokeWidth="1" />
-                            <rect x="45" y="20" width="32" height="26" fill="#deb887" stroke="#b5a642" strokeWidth="1" rx="1" />
-                            <path d="M85,25 L98,35 L92,50 L79,40 Z" fill="#34a85a" />
-                            <text x="88" y="43" fontFamily="sans-serif" fontSize="10" fill="#fff" fontWeight="bold" textAnchor="middle">%</text>
-                          </svg>
-                        </div>
-                      </div>
-
-                    </div>
-
-                    {/* Trust Badges Bar */}
-                    <div className="grid grid-cols-3 gap-2 rounded-2xl bg-white border border-neutral-100 p-3 shadow-3xs">
-                      
-                      {/* Badge 1: Fast Delivery */}
-                      <div className="flex flex-col items-center text-center">
-                        <div className="flex h-9 w-9 items-center justify-center rounded-full bg-primary-50">
-                          <Truck className="h-5 w-5 text-primary-700" />
-                        </div>
-                        <span className="text-[10px] font-extrabold text-neutral-800 mt-1">{t.badges.delivery}</span>
-                        <span className="text-[8px] font-semibold text-neutral-400 mt-0.5">{t.badges.deliverySub}</span>
-                      </div>
-
-                      {/* Badge 2: Best Prices */}
-                      <div className="flex flex-col items-center text-center border-x border-neutral-100">
-                        <div className="flex h-9 w-9 items-center justify-center rounded-full bg-primary-50">
-                          <Percent className="h-5 w-5 text-primary-700" />
-                        </div>
-                        <span className="text-[10px] font-extrabold text-neutral-800 mt-1">{t.badges.prices}</span>
-                        <span className="text-[8px] font-semibold text-neutral-400 mt-0.5">{t.badges.pricesSub}</span>
-                      </div>
-
-                      {/* Badge 3: Trusted Quality */}
-                      <div className="flex flex-col items-center text-center">
-                        <div className="flex h-9 w-9 items-center justify-center rounded-full bg-primary-50">
-                          <ShieldCheck className="h-5 w-5 text-primary-700" />
-                        </div>
-                        <span className="text-[10px] font-extrabold text-neutral-800 mt-1">{t.badges.quality}</span>
-                        <span className="text-[8px] font-semibold text-neutral-400 mt-0.5">{t.badges.qualitySub}</span>
-                      </div>
-
-                    </div>
-
-                    {/* Best Selling Products Horizontal Row */}
-                    <div>
-                      <div className="flex items-center justify-between mb-2">
-                        <h3 className="text-sm font-extrabold text-neutral-900">{t.bestSelling}</h3>
-                        <button 
-                          type="button"
-                          className="text-xs font-bold text-primary-700 hover:underline flex items-center"
-                        >
-                          <span>{t.viewAll}</span>
-                          <ChevronDown className="h-3.5 w-3.5 -rotate-90 ml-0.5" />
-                        </button>
-                      </div>
-
-                      {/* Horizontal Scroll wrapper */}
-                      <div className="flex space-x-3 overflow-x-auto pb-2 -mx-1 px-1 scrollbar-none">
-                        {products.map(product => {
-                          const isInWishlist = wishlist.includes(product.id);
-                          return (
-                            <div key={product.id} className="relative w-36 shrink-0 rounded-2xl bg-white border border-neutral-100 p-2.5 shadow-3xs flex flex-col justify-between">
-                              
-                              {/* Wishlist Heart Icon */}
-                              <button
-                                type="button"
-                                onClick={() => toggleWishlist(product.id)}
-                                className="absolute top-2 right-2 z-10 p-1.5 rounded-full bg-white/90 shadow-3xs text-neutral-400 hover:text-red-500 transition active:scale-[0.9]"
-                              >
-                                <Heart className={`h-4 w-4 ${isInWishlist ? 'fill-red-500 text-red-500' : 'text-neutral-400'}`} />
-                              </button>
-
-                              {/* Product Image */}
-                              <div className="mb-2 shrink-0">
-                                {renderProductImage(product.imageType)}
-                              </div>
-
-                              {/* Product Info */}
-                              <div>
-                                <h4 className="text-[11px] font-extrabold text-neutral-800 truncate leading-snug">{t.products[product.nameKey]}</h4>
-                                <p className="text-[9px] text-neutral-400 font-semibold">{product.unit}</p>
-                                <div className="flex items-center justify-between mt-1.5">
-                                  <span className="text-xs font-black text-neutral-900">₹{product.price}</span>
-                                  <button
-                                    type="button"
-                                    onClick={() => addToCart(product)}
-                                    className="flex h-6 w-6 items-center justify-center rounded-lg bg-primary-100 text-primary-800 hover:bg-primary-850 hover:text-white transition active:scale-[0.93]"
-                                  >
-                                    <Plus className="h-4 w-4" />
-                                  </button>
-                                </div>
-                              </div>
-
-                            </div>
-                          );
-                        })}
-                      </div>
-
-                    </div>
+                    {/* Best Selling Products Component */}
+                    <BestSellingProducts
+                      products={products}
+                      wishlist={wishlist}
+                      toggleWishlist={toggleWishlist}
+                      addToCart={addToCart}
+                      t={t}
+                    />
 
                   </div>
 
@@ -997,10 +604,16 @@ export default function CustomerDashboard() {
                   cart.map(item => (
                     <div key={item.id} className="flex items-center justify-between rounded-2xl border border-neutral-100 bg-white p-3 shadow-3xs">
                       <div className="h-14 w-14 shrink-0 rounded-xl bg-neutral-50 p-1 flex items-center justify-center">
-                        {renderProductImage(item.imageType)}
+                        {item.imageUrl ? (
+                          <img src={item.imageUrl} alt={item.nameRaw || ""} className="w-full h-full object-contain rounded-lg" />
+                        ) : (
+                          <ProductImage type={item.imageType} className="w-full h-full object-contain" />
+                        )}
                       </div>
                       <div className="flex-1 pl-3.5 pr-1">
-                        <h4 className="text-xs font-extrabold text-neutral-800 truncate leading-snug">{t.products[item.nameKey]}</h4>
+                        <h4 className="text-xs font-extrabold text-neutral-800 truncate leading-snug">
+                          {item.nameRaw || t.products[item.nameKey]}
+                        </h4>
                         <p className="text-[10px] text-neutral-400 font-semibold">{item.unit}</p>
                         <span className="text-xs font-black text-primary-800">₹{item.price * item.quantity}</span>
                       </div>
@@ -1064,10 +677,16 @@ export default function CustomerDashboard() {
                   products.filter(p => wishlist.includes(p.id)).map(product => (
                     <div key={product.id} className="flex items-center justify-between rounded-2xl border border-neutral-100 bg-white p-3 shadow-3xs">
                       <div className="h-14 w-14 shrink-0 rounded-xl bg-neutral-50 p-1 flex items-center justify-center">
-                        {renderProductImage(product.imageType)}
+                        {product.imageUrl ? (
+                          <img src={product.imageUrl} alt={product.nameRaw || ""} className="w-full h-full object-contain rounded-lg" />
+                        ) : (
+                          <ProductImage type={product.imageType} className="w-full h-full object-contain" />
+                        )}
                       </div>
                       <div className="flex-1 pl-3.5 pr-1">
-                        <h4 className="text-xs font-extrabold text-neutral-800 truncate leading-snug">{t.products[product.nameKey]}</h4>
+                        <h4 className="text-xs font-extrabold text-neutral-800 truncate leading-snug">
+                          {product.nameRaw || t.products[product.nameKey]}
+                        </h4>
                         <p className="text-[10px] text-neutral-400 font-semibold">{product.unit}</p>
                         <span className="text-xs font-black text-primary-800">₹{product.price}</span>
                       </div>
@@ -1148,77 +767,20 @@ export default function CustomerDashboard() {
         </div>
 
         {/* Sticky Bottom Navigation Bar */}
-        <div className="absolute bottom-0 left-0 right-0 z-30 flex h-16 items-center justify-around border-t border-neutral-200 bg-white/95 px-2 pb-1 shadow-md backdrop-blur-md shrink-0">
-          
-          {/* Nav Tab: Home */}
-          <button
-            type="button"
-            onClick={() => {
-              setActiveTab('home');
-              setCurrentCategory(null); // Reset vegetables subpage on home click
-            }}
-            className={`flex flex-col items-center justify-center flex-1 py-1.5 transition ${
-              activeTab === 'home' ? 'text-primary-800' : 'text-neutral-400 hover:text-neutral-600'
-            }`}
-          >
-            <User className={`h-5 w-5 ${activeTab === 'home' ? 'stroke-[2.5px]' : ''}`} />
-            <span className="text-[10px] font-extrabold mt-0.5">{t.nav.home}</span>
-          </button>
-
-          {/* Nav Tab: Orders */}
-          <button
-            type="button"
-            onClick={() => setActiveTab('orders')}
-            className={`flex flex-col items-center justify-center flex-1 py-1.5 transition ${
-              activeTab === 'orders' ? 'text-primary-800' : 'text-neutral-400 hover:text-neutral-600'
-            }`}
-          >
-            <Clipboard className={`h-5 w-5 ${activeTab === 'orders' ? 'stroke-[2.5px]' : ''}`} />
-            <span className="text-[10px] font-extrabold mt-0.5">{t.nav.orders}</span>
-          </button>
-
-          {/* Nav Tab: Cart with green count badge */}
-          <button
-            type="button"
-            onClick={() => setActiveTab('cart')}
-            className={`relative flex flex-col items-center justify-center flex-1 py-1.5 transition ${
-              activeTab === 'cart' ? 'text-primary-800' : 'text-neutral-400 hover:text-neutral-600'
-            }`}
-          >
-            <ShoppingCart className={`h-5 w-5 ${activeTab === 'cart' ? 'stroke-[2.5px]' : ''}`} />
-            {getCartItemsCount() > 0 && (
-              <span className="absolute top-1.5 right-4.5 flex h-4 w-4 items-center justify-center rounded-full bg-primary-700 text-[8px] font-black text-white">
-                {getCartItemsCount()}
-              </span>
-            )}
-            <span className="text-[10px] font-extrabold mt-0.5">{t.nav.cart}</span>
-          </button>
-
-          {/* Nav Tab: Wishlist */}
-          <button
-            type="button"
-            onClick={() => setActiveTab('wishlist')}
-            className={`flex flex-col items-center justify-center flex-1 py-1.5 transition ${
-              activeTab === 'wishlist' ? 'text-primary-800' : 'text-neutral-400 hover:text-neutral-600'
-            }`}
-          >
-            <Heart className={`h-5 w-5 ${activeTab === 'wishlist' ? 'stroke-[2.5px]' : ''}`} />
-            <span className="text-[10px] font-extrabold mt-0.5">{t.nav.wishlist}</span>
-          </button>
-
-          {/* Nav Tab: Profile */}
-          <button
-            type="button"
-            onClick={() => setActiveTab('profile')}
-            className={`flex flex-col items-center justify-center flex-1 py-1.5 transition ${
-              activeTab === 'profile' ? 'text-primary-800' : 'text-neutral-400 hover:text-neutral-600'
-            }`}
-          >
-            <User className={`h-5 w-5 ${activeTab === 'profile' ? 'stroke-[2.5px]' : ''}`} />
-            <span className="text-[10px] font-extrabold mt-0.5">{t.nav.profile}</span>
-          </button>
-
-        </div>
+        <BottomNavigation
+          activeTab={activeTab}
+          setActiveTab={setActiveTab}
+          onHomeClick={() => {
+            setActiveTab('home');
+            setCurrentCategory(null);
+            setSelectedBrand(null);
+            setSelectedModel(null);
+            setSelectedPartCategory(null);
+            setSelectedPart(null);
+          }}
+          cartItemsCount={getCartItemsCount()}
+          t={t}
+        />
 
       </div>
     </div>
