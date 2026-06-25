@@ -23,6 +23,8 @@ import {
   ArrowLeft
 } from 'lucide-react';
 import { logout } from '@/redux/slices/authSlice';
+import { getTractorModels } from '../../data/tractorModels';
+
 
 const localTranslations = {
   hi: {
@@ -182,6 +184,8 @@ export default function CustomerDashboard() {
   const [time, setTime] = useState('09:41');
   const [activeTab, setActiveTab] = useState('home'); // home, orders, cart, wishlist, profile
   const [currentCategory, setCurrentCategory] = useState(null); // null or 'vegetables'
+  const [selectedBrand, setSelectedBrand] = useState(null);
+
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -511,97 +515,145 @@ export default function CustomerDashboard() {
                   <div className="flex items-center space-x-3 px-4 py-2 shrink-0 border-b border-neutral-100 bg-white">
                     <button
                       type="button"
-                      onClick={() => setCurrentCategory(null)}
+                      onClick={() => {
+                        if (selectedBrand) {
+                          setSelectedBrand(null);
+                        } else {
+                          setCurrentCategory(null);
+                        }
+                      }}
                       className="p-1.5 rounded-lg text-neutral-600 hover:bg-neutral-100 transition active:scale-[0.95]"
                     >
                       <ArrowLeft className="h-5 w-5 text-neutral-700" />
                     </button>
                     <div>
                       <h2 className="text-base font-black text-neutral-900 leading-snug">
-                        {lang === 'hi' ? 'ट्रैक्टर केंद्र (Tractor Hub)' : 'Tractor Hub'}
+                        {selectedBrand 
+                          ? (lang === 'hi' ? `${selectedBrand.name} के मॉडल` : `${selectedBrand.name} Models`)
+                          : (lang === 'hi' ? 'ट्रैक्टर केंद्र (Tractor Hub)' : 'Tractor Hub')
+                        }
                       </h2>
                       <p className="text-[10px] text-emerald-650 font-bold leading-none">
-                        {lang === 'hi' ? 'आपके खेत के लिए सर्वश्रेष्ठ ट्रैक्टर' : 'Best Tractors for Your Farming Needs'}
+                        {selectedBrand
+                          ? (lang === 'hi' ? 'शीर्ष 10 मॉडल' : 'Top 10 Models')
+                          : (lang === 'hi' ? 'आपके खेत के लिए सर्वश्रेष्ठ ट्रैक्टर' : 'Best Tractors for Your Farming Needs')
+                        }
                       </p>
                     </div>
                   </div>
 
-                  {/* Farmer Campaign Banner */}
-                  <div className="mx-4 mt-3 rounded-2xl bg-gradient-to-r from-emerald-600 to-green-800 p-5 text-white shadow-xs relative overflow-hidden shrink-0">
-                    <div className="absolute -right-4 -bottom-4 opacity-10 pointer-events-none">
-                      <svg viewBox="0 0 100 100" className="w-24 h-24 text-white fill-current">
-                        <path d="M10,80 Q50,20 90,80 Z" />
-                      </svg>
-                    </div>
-                    <span className="inline-block rounded-full bg-amber-400 px-2.5 py-1 text-[9px] font-black text-emerald-950 uppercase tracking-wider mb-2">
-                      🚜 PM-किसान योजना सब्सिडी स्वीकृत
-                    </span>
-                    <h3 className="text-xs sm:text-sm font-black leading-snug">
-                      {lang === 'hi' ? 'खोजें अपने बजट का सही साथी' : 'Find the Perfect Tractor for Your Budget'}
-                    </h3>
-                    <p className="text-[10px] text-emerald-50 mt-1.5 font-bold">
-                      {lang === 'hi' ? 'सरकारी योजनाओं के अंतर्गत पाएं 50% तक की छूट' : 'Get up to 50% Government Subsidy'}
-                    </p>
-                  </div>
+                  {selectedBrand ? (
+                    /* Tractor Models Detail View (Simple 2-Column Grid) */
+                    <div className="flex-1 overflow-y-auto px-4 pb-4 space-y-3.5 scrollbar-none">
+                      <div className="grid grid-cols-2 gap-3.5 pt-3">
+                        {getTractorModels(selectedBrand.name, selectedBrand.imageUrl).map(model => (
+                          <div 
+                            key={model.id} 
+                            className="relative rounded-2xl bg-white border border-neutral-100 p-3.5 shadow-3xs flex flex-col items-center justify-between hover:shadow-xs hover:border-emerald-200 transition duration-200"
+                          >
+                            
+                            {/* Tractor Model Image */}
+                            <div className="w-full h-24 overflow-hidden rounded-xl bg-white mt-4 mb-2 flex items-center justify-center shrink-0">
+                              <img 
+                                src={model.imageUrl} 
+                                alt={model.name} 
+                                className="w-full h-full object-contain rounded-xl p-0.5"
+                              />
+                            </div>
 
-                  {/* Search Bar inside Category */}
-                  <div className="px-4 py-2.5 shrink-0">
-                    <div className="flex h-10 items-center rounded-xl border border-neutral-200 bg-white px-3 shadow-3xs">
-                      <Search className="h-4 w-4 text-neutral-400" />
-                      <input 
-                        type="text"
-                        placeholder={t.searchPlaceholder}
-                        className="flex-1 pl-2 text-xs font-semibold text-neutral-800 placeholder-neutral-400 outline-none bg-transparent"
-                      />
-                    </div>
-                  </div>
+                            {/* Tractor Model Name */}
+                            <div className="text-center w-full pt-1 border-t border-neutral-50">
+                              <h4 className="text-xs font-black text-neutral-800 leading-snug truncate">{model.name}</h4>
+                            </div>
 
-                  {/* Farmer Filter Tabs */}
-                  <div className="flex space-x-2 overflow-x-auto px-4 pb-2.5 scrollbar-none shrink-0">
-                    <button className="px-3.5 py-1 rounded-full bg-emerald-800 text-white text-[10px] font-extrabold shadow-3xs shrink-0 transition">
-                      {lang === 'hi' ? 'सभी ब्रांड' : 'All Brands'}
-                    </button>
-                    <button className="px-3.5 py-1 rounded-full bg-white border border-neutral-200 text-neutral-600 hover:bg-neutral-50 text-[10px] font-extrabold shrink-0 transition">
-                      {lang === 'hi' ? 'सब्सिडी वाले' : 'Govt Subsidy Approved'}
-                    </button>
-                    <button className="px-3.5 py-1 rounded-full bg-white border border-neutral-200 text-neutral-600 hover:bg-neutral-50 text-[10px] font-extrabold shrink-0 transition">
-                      {lang === 'hi' ? 'हैवी ड्यूटी' : 'Heavy Duty'}
-                    </button>
-                    <button className="px-3.5 py-1 rounded-full bg-white border border-neutral-200 text-neutral-600 hover:bg-neutral-50 text-[10px] font-extrabold shrink-0 transition">
-                      {lang === 'hi' ? 'किराये पर उपलब्ध' : 'Available for Rent'}
-                    </button>
-                  </div>
-
-                  {/* Tractor Grid Container */}
-                  <div className="flex-1 overflow-y-auto px-4 pb-4 space-y-3.5">
-                    <div className="grid grid-cols-2 gap-3.5 pt-1">
-                      {tractorProducts.map(product => (
-                        <div key={product.id} className="relative rounded-2xl bg-white border border-neutral-100 p-3 shadow-3xs flex flex-col items-center justify-between hover:shadow-xs hover:border-emerald-200 transition">
-                          
-                          {/* Farmer benefit Badge */}
-                          <span className="absolute top-2.5 left-2.5 z-10 rounded bg-emerald-50 border border-emerald-100 px-1.5 py-0.5 text-[8px] font-black text-emerald-800 uppercase tracking-wider scale-[0.9] origin-left">
-                            {lang === 'hi' ? product.tagHi : product.tagEn}
-                          </span>
-
-                          {/* Tractor Image (Real Studio Shot) */}
-                          <div className="w-full h-24 overflow-hidden rounded-xl bg-white mt-4 mb-2 flex items-center justify-center shrink-0">
-                            <img 
-                              src={product.imageUrl} 
-                              alt={product.name} 
-                              className="w-full h-full object-contain rounded-xl p-0.5"
-                            />
                           </div>
-
-                          {/* Tractor Name */}
-                          <div className="text-center w-full pt-1 border-t border-neutral-50">
-                            <h4 className="text-xs font-black text-neutral-800 leading-snug truncate">{product.name}</h4>
-                          </div>
-
+                        ))}
+                      </div>
+                    </div>
+                  ) : (
+                    /* Tractor Brands Grid View */
+                    <div className="flex-1 flex flex-col overflow-hidden bg-neutral-50">
+                      {/* Farmer Campaign Banner */}
+                      <div className="mx-4 mt-3 rounded-2xl bg-gradient-to-r from-emerald-600 to-green-800 p-5 text-white shadow-xs relative overflow-hidden shrink-0">
+                        <div className="absolute -right-4 -bottom-4 opacity-10 pointer-events-none">
+                          <svg viewBox="0 0 100 100" className="w-24 h-24 text-white fill-current">
+                            <path d="M10,80 Q50,20 90,80 Z" />
+                          </svg>
                         </div>
-                      ))}
-                    </div>
-                  </div>
+                        <span className="inline-block rounded-full bg-amber-400 px-2.5 py-1 text-[9px] font-black text-emerald-950 uppercase tracking-wider mb-2">
+                          🚜 PM-किसान योजना सब्सिडी स्वीकृत
+                        </span>
+                        <h3 className="text-xs sm:text-sm font-black leading-snug">
+                          {lang === 'hi' ? 'खोजें अपने बजट का सही साथी' : 'Find the Perfect Tractor for Your Budget'}
+                        </h3>
+                        <p className="text-[10px] text-emerald-50 mt-1.5 font-bold">
+                          {lang === 'hi' ? 'सरकारी योजनाओं के अंतर्गत पाएं 50% तक की छूट' : 'Get up to 50% Government Subsidy'}
+                        </p>
+                      </div>
 
+                      {/* Search Bar inside Category */}
+                      <div className="px-4 py-2.5 shrink-0">
+                        <div className="flex h-10 items-center rounded-xl border border-neutral-200 bg-white px-3 shadow-3xs">
+                          <Search className="h-4 w-4 text-neutral-400" />
+                          <input 
+                            type="text"
+                            placeholder={t.searchPlaceholder}
+                            className="flex-1 pl-2 text-xs font-semibold text-neutral-800 placeholder-neutral-400 outline-none bg-transparent"
+                          />
+                        </div>
+                      </div>
+
+                      {/* Farmer Filter Tabs */}
+                      <div className="flex space-x-2 overflow-x-auto px-4 pb-2.5 scrollbar-none shrink-0">
+                        <button className="px-3.5 py-1 rounded-full bg-emerald-800 text-white text-[10px] font-extrabold shadow-3xs shrink-0 transition">
+                          {lang === 'hi' ? 'सभी ब्रांड' : 'All Brands'}
+                        </button>
+                        <button className="px-3.5 py-1 rounded-full bg-white border border-neutral-200 text-neutral-600 hover:bg-neutral-50 text-[10px] font-extrabold shrink-0 transition">
+                          {lang === 'hi' ? 'सब्सिडी वाले' : 'Govt Subsidy Approved'}
+                        </button>
+                        <button className="px-3.5 py-1 rounded-full bg-white border border-neutral-200 text-neutral-600 hover:bg-neutral-50 text-[10px] font-extrabold shrink-0 transition">
+                          {lang === 'hi' ? 'हैवी ड्यूटी' : 'Heavy Duty'}
+                        </button>
+                        <button className="px-3.5 py-1 rounded-full bg-white border border-neutral-200 text-neutral-600 hover:bg-neutral-50 text-[10px] font-extrabold shrink-0 transition">
+                          {lang === 'hi' ? 'किराये पर उपलब्ध' : 'Available for Rent'}
+                        </button>
+                      </div>
+
+                      {/* Tractor Grid Container */}
+                      <div className="flex-1 overflow-y-auto px-4 pb-4 space-y-3.5 scrollbar-none">
+                        <div className="grid grid-cols-2 gap-3.5 pt-1">
+                          {tractorProducts.map(product => (
+                            <div 
+                              key={product.id} 
+                              onClick={() => setSelectedBrand(product)}
+                              className="relative cursor-pointer rounded-2xl bg-white border border-neutral-100 p-3 shadow-3xs flex flex-col items-center justify-between hover:shadow-xs hover:border-emerald-200 hover:scale-[1.02] active:scale-[0.98] transition-all duration-200"
+                            >
+                              
+                              {/* Farmer benefit Badge */}
+                              <span className="absolute top-2.5 left-2.5 z-10 rounded bg-emerald-50 border border-emerald-100 px-1.5 py-0.5 text-[8px] font-black text-emerald-800 uppercase tracking-wider scale-[0.9] origin-left">
+                                {lang === 'hi' ? product.tagHi : product.tagEn}
+                              </span>
+
+                              {/* Tractor Image (Real Studio Shot) */}
+                              <div className="w-full h-24 overflow-hidden rounded-xl bg-white mt-4 mb-2 flex items-center justify-center shrink-0">
+                                <img 
+                                  src={product.imageUrl} 
+                                  alt={product.name} 
+                                  className="w-full h-full object-contain rounded-xl p-0.5"
+                                />
+                              </div>
+
+                              {/* Tractor Name */}
+                              <div className="text-center w-full pt-1 border-t border-neutral-50">
+                                <h4 className="text-xs font-black text-neutral-800 leading-snug truncate">{product.name}</h4>
+                              </div>
+
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+                    </div>
+                  )}
                 </div>
               ) : (
                 <div className="flex-1 flex flex-col overflow-hidden">
@@ -662,7 +714,7 @@ export default function CustomerDashboard() {
                       
                       {/* Category: Vegetables (Clickable) */}
                       <div 
-                        onClick={() => setCurrentCategory('vegetables')}
+                        onClick={() => { setCurrentCategory('vegetables'); setSelectedBrand(null); }}
                         className="flex flex-col justify-between rounded-2xl bg-white border border-neutral-100 p-3.5 shadow-2xs hover:shadow-xs transition cursor-pointer"
                       >
                         <div>
@@ -689,7 +741,7 @@ export default function CustomerDashboard() {
 
                       {/* Category: Tractor */}
                       <div 
-                        onClick={() => setCurrentCategory('tractor')}
+                        onClick={() => { setCurrentCategory('tractor'); setSelectedBrand(null); }}
                         className="flex flex-col justify-between rounded-2xl bg-white border border-neutral-100 p-3.5 shadow-2xs hover:shadow-xs transition cursor-pointer"
                       >
                         <div>
