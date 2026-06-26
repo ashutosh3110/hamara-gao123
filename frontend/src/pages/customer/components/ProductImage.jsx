@@ -94,6 +94,26 @@ export default function ProductImage({ type, className = "w-full h-24 object-con
           <text x="50" y="60" fontFamily="sans-serif" fontSize="6" fontWeight="extrabold" fill="#fff" textAnchor="middle">NANO UREA</text>
         </svg>
       );
+    case 'organicKhada':
+      return (
+        <svg viewBox="0 0 100 100" className={`${className} bg-neutral-50 rounded-xl p-1`}>
+          <path d="M30,20 C30,15 40,12 50,12 C60,12 70,15 70,20 C70,28 66,75 62,85 C58,88 42,88 38,85 C34,75 30,28 30,20 Z" fill="#854d0e" stroke="#451a03" strokeWidth="1.5" />
+          <ellipse cx="50" cy="20" rx="20" ry="4" fill="#a3e635" />
+          <text x="50" y="42" fontFamily="sans-serif" fontSize="9" fontWeight="bold" fill="#fff" textAnchor="middle">ऑर्गेनिक</text>
+          <text x="50" y="55" fontFamily="sans-serif" fontSize="12" fontWeight="extrabold" fill="#a3e635" textAnchor="middle">खाद</text>
+          <text x="50" y="68" fontFamily="sans-serif" fontSize="8" fontWeight="bold" fill="#fff" textAnchor="middle">5 KG</text>
+        </svg>
+      );
+    case 'zincSulfate':
+      return (
+        <svg viewBox="0 0 100 100" className={`${className} bg-neutral-50 rounded-xl p-1`}>
+          <path d="M30,20 C30,15 40,12 50,12 C60,12 70,15 70,20 C70,28 66,75 62,85 C58,88 42,88 38,85 C34,75 30,28 30,20 Z" fill="#0284c7" stroke="#0369a1" strokeWidth="1.5" />
+          <ellipse cx="50" cy="20" rx="20" ry="4" fill="#bae6fd" />
+          <text x="50" y="42" fontFamily="sans-serif" fontSize="9" fontWeight="bold" fill="#fff" textAnchor="middle">जिंक सल्फेट</text>
+          <text x="50" y="55" fontFamily="sans-serif" fontSize="10" fontWeight="extrabold" fill="#bae6fd" textAnchor="middle">ZINC</text>
+          <text x="50" y="68" fontFamily="sans-serif" fontSize="8" fontWeight="bold" fill="#fff" textAnchor="middle">33% Zn</text>
+        </svg>
+      );
     case 'wheat':
       return (
         <svg viewBox="0 0 100 100" className={`${className} bg-neutral-50 rounded-xl p-1`}>
@@ -102,6 +122,151 @@ export default function ProductImage({ type, className = "w-full h-24 object-con
           <circle cx="45" cy="55" r="2.5" fill="#fff" opacity="0.6" />
           <circle cx="55" cy="58" r="2.5" fill="#fff" opacity="0.6" />
           <circle cx="38" cy="62" r="2" fill="#fff" opacity="0.6" />
+        </svg>
+      );
+    case 'cp-clutch-plate':
+      return (
+        <svg viewBox="0 0 100 100" className={`${className} bg-orange-50 rounded-xl p-1.5`}>
+          <circle cx="50" cy="50" r="38" fill="none" stroke="#777" strokeWidth="8" />
+          <circle cx="50" cy="50" r="34" fill="none" stroke="#d32f2f" strokeWidth="4" />
+          <circle cx="50" cy="50" r="16" fill="#555" />
+          <path d="M50,30 L50,70 M30,50 L70,50 M36,36 L64,64 M36,64 L64,36" stroke="#999" strokeWidth="3" />
+          <circle cx="50" cy="50" r="8" fill="#111" />
+        </svg>
+      );
+    case 'cp-pressure-plate':
+      return (
+        <svg viewBox="0 0 100 100" className={`${className} bg-slate-50 rounded-xl p-1.5`}>
+          <circle cx="50" cy="50" r="40" fill="#9e9e9e" stroke="#616161" strokeWidth="2.5" />
+          <circle cx="50" cy="50" r="26" fill="#e0e0e0" />
+          <path d="M50,24 L50,42 M50,58 L50,76 M24,50 L42,50 M58,50 L76,50 M32,32 L44,44 M56,56 L68,68 M32,68 L44,56 M56,44 L68,32" stroke="#757575" strokeWidth="3.5" strokeLinecap="round" />
+          <circle cx="50" cy="50" r="14" fill="#616161" />
+        </svg>
+      );
+    case 'cp-release-bearing':
+      return (
+        <svg viewBox="0 0 100 100" className={`${className} bg-blue-50 rounded-xl p-1.5`}>
+          <circle cx="50" cy="50" r="30" fill="none" stroke="#b0bec5" strokeWidth="12" />
+          <circle cx="50" cy="50" r="26" fill="none" stroke="#90a4ae" strokeWidth="2" />
+          <circle cx="50" cy="50" r="34" fill="none" stroke="#78909c" strokeWidth="2" />
+          <circle cx="50" cy="50" r="18" fill="none" stroke="#546e7a" strokeWidth="4" />
+        </svg>
+      );
+    case 'cp-clutch-bearing':
+      return (
+        <svg viewBox="0 0 100 100" className={`${className} bg-sky-50 rounded-xl p-1.5`}>
+          <circle cx="50" cy="50" r="32" fill="none" stroke="#b0bec5" strokeWidth="10" />
+          <circle cx="50" cy="24" r="3.5" fill="#78909c" />
+          <circle cx="50" cy="76" r="3.5" fill="#78909c" />
+          <circle cx="24" cy="50" r="3.5" fill="#78909c" />
+          <circle cx="76" cy="50" r="3.5" fill="#78909c" />
+          <circle cx="32" cy="32" r="3.5" fill="#78909c" />
+          <circle cx="68" cy="68" r="3.5" fill="#78909c" />
+          <circle cx="32" cy="68" r="3.5" fill="#78909c" />
+          <circle cx="68" cy="32" r="3.5" fill="#78909c" />
+          <circle cx="50" cy="50" r="20" fill="none" stroke="#cfd8dc" strokeWidth="2" />
+        </svg>
+      );
+    case 'cp-cover-assembly':
+      return (
+        <svg viewBox="0 0 100 100" className={`${className} bg-neutral-100 rounded-xl p-1.5`}>
+          <circle cx="50" cy="50" r="42" fill="#757575" />
+          <circle cx="50" cy="50" r="32" fill="#e0e0e0" />
+          <path d="M50,15 L50,85 M15,50 L85,50" stroke="#9e9e9e" strokeWidth="4" />
+          <circle cx="50" cy="50" r="18" fill="#424242" />
+          <circle cx="16" cy="16" r="3.5" fill="#fff" />
+          <circle cx="84" cy="84" r="3.5" fill="#fff" />
+          <circle cx="16" cy="84" r="3.5" fill="#fff" />
+          <circle cx="84" cy="16" r="3.5" fill="#fff" />
+        </svg>
+      );
+    case 'cp-clutch-fork':
+      return (
+        <svg viewBox="0 0 100 100" className={`${className} bg-zinc-50 rounded-xl p-1.5`}>
+          <path d="M50,15 L50,55 M50,55 Q50,75 25,75 M50,55 Q50,75 75,75" fill="none" stroke="#424242" strokeWidth="8" strokeLinecap="round" />
+          <circle cx="50" cy="20" r="6" fill="#9e9e9e" />
+          <circle cx="25" cy="75" r="5" fill="#9e9e9e" />
+          <circle cx="75" cy="75" r="5" fill="#9e9e9e" />
+        </svg>
+      );
+    case 'cp-clutch-hub':
+      return (
+        <svg viewBox="0 0 100 100" className={`${className} bg-stone-50 rounded-xl p-1.5`}>
+          <circle cx="50" cy="50" r="30" fill="#78909c" />
+          <circle cx="50" cy="50" r="22" fill="#cfd8dc" stroke="#455a64" strokeWidth="1.5" />
+          <path d="M50,22 L50,16 M50,78 L50,84 M22,50 L16,50 M78,50 L84,50" stroke="#37474f" strokeWidth="4" />
+          <circle cx="50" cy="50" r="12" fill="#37474f" />
+        </svg>
+      );
+    case 'cp-clutch-lever':
+      return (
+        <svg viewBox="0 0 100 100" className={`${className} bg-emerald-50 rounded-xl p-1.5`}>
+          <rect x="44" y="15" width="12" height="70" rx="6" fill="#757575" />
+          <circle cx="50" cy="25" r="5" fill="#fff" />
+          <circle cx="50" cy="50" r="5" fill="#fff" />
+          <circle cx="50" cy="75" r="5" fill="#fff" />
+        </svg>
+      );
+    case 'cp-release-sleeve':
+      return (
+        <svg viewBox="0 0 100 100" className={`${className} bg-amber-50 rounded-xl p-1.5`}>
+          <rect x="36" y="20" width="28" height="60" rx="3" fill="#90a4ae" />
+          <rect x="28" y="20" width="44" height="12" fill="#546e7a" />
+          <rect x="28" y="68" width="44" height="12" fill="#546e7a" />
+          <circle cx="50" cy="50" r="8" fill="#37474f" />
+        </svg>
+      );
+    case 'cp-clutch-cable':
+      return (
+        <svg viewBox="0 0 100 100" className={`${className} bg-rose-55 bg-rose-50 rounded-xl p-1.5`}>
+          <path d="M15,85 C35,65 35,35 85,15" fill="none" stroke="#212121" strokeWidth="6" strokeLinecap="round" />
+          <path d="M15,85 C35,65 35,35 85,15" fill="none" stroke="#e0e0e0" strokeWidth="2" strokeLinecap="round" />
+          <rect x="80" y="8" width="10" height="10" transform="rotate(45 80 8)" fill="#757575" />
+          <rect x="10" y="78" width="10" height="10" transform="rotate(45 10 78)" fill="#757575" />
+        </svg>
+      );
+    case 'cp-pedal-bush':
+      return (
+        <svg viewBox="0 0 100 100" className={`${className} bg-teal-50 rounded-xl p-1.5`}>
+          <circle cx="35" cy="50" r="16" fill="none" stroke="#d84315" strokeWidth="8" />
+          <circle cx="35" cy="50" r="12" fill="none" stroke="#ff8a50" strokeWidth="2" />
+          <circle cx="65" cy="50" r="12" fill="none" stroke="#d84315" strokeWidth="6" />
+        </svg>
+      );
+    case 'cp-master-cylinder':
+      return (
+        <svg viewBox="0 0 100 100" className={`${className} bg-slate-100 rounded-xl p-1.5`}>
+          <rect x="25" y="42" width="50" height="20" rx="3" fill="#616161" />
+          <rect x="68" y="46" width="14" height="12" fill="#9e9e9e" />
+          <rect x="35" y="18" width="22" height="24" fill="#eeeeee" stroke="#9e9e9e" strokeWidth="2" />
+          <rect x="42" y="10" width="8" height="8" fill="#424242" />
+          <circle cx="82" cy="52" r="3" fill="#424242" />
+        </svg>
+      );
+    case 'cp-slave-cylinder':
+      return (
+        <svg viewBox="0 0 100 100" className={`${className} bg-gray-50 rounded-xl p-1.5`}>
+          <rect x="20" y="42" width="46" height="18" rx="2" fill="#757575" />
+          <rect x="62" y="48" width="22" height="6" fill="#9e9e9e" />
+          <circle cx="84" cy="51" r="3" fill="#ff7043" />
+        </svg>
+      );
+    case 'cp-repair-kit':
+      return (
+        <svg viewBox="0 0 100 100" className={`${className} bg-cyan-50 rounded-xl p-1.5`}>
+          <circle cx="35" cy="35" r="14" fill="none" stroke="#ff1744" strokeWidth="5" />
+          <circle cx="65" cy="40" r="10" fill="none" stroke="#3d5afe" strokeWidth="3" />
+          <circle cx="45" cy="65" r="6" fill="none" stroke="#00e676" strokeWidth="4" />
+          <line x1="20" y1="75" x2="80" y2="75" stroke="#757575" strokeWidth="4" strokeDasharray="3 3" />
+        </svg>
+      );
+    case 'cp-complete-kit':
+      return (
+        <svg viewBox="0 0 100 100" className={`${className} bg-emerald-50 rounded-xl p-1.5`}>
+          <circle cx="40" cy="55" r="28" fill="none" stroke="#757575" strokeWidth="6" />
+          <circle cx="40" cy="55" r="12" fill="#555" />
+          <circle cx="65" cy="40" r="26" fill="#cfd8dc" stroke="#78909c" strokeWidth="2" />
+          <circle cx="65" cy="40" r="10" fill="#37474f" />
         </svg>
       );
     default:

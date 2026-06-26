@@ -48,7 +48,7 @@ export default {
         },
       },
       fontFamily: {
-        sans: ['Outfit', 'Inter', 'sans-serif'],
+        sans: ['Mukta', 'Noto Sans Devanagari', 'Hind', 'Poppins', 'Outfit', 'Inter', 'sans-serif'],
       },
     },
   },

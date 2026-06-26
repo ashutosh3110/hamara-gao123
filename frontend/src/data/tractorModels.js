@@ -178,4 +178,23 @@ export const enginePartsData = [
   { id: 'ep-crankshaft', nameHi: 'क्रैंकशाफ्ट', nameEn: 'Crankshaft', imageUrl: '/tractors/parts/engine/crankshaft.png', price: 9500, stock: 4 }
 ];
 
+export const clutchPartsData = [
+  { id: 'cp-clutch-plate', nameHi: 'क्लच प्लेट', nameEn: 'Clutch Plate', price: 2800, stock: 12, imageType: 'cp-clutch-plate', imageUrl: null },
+  { id: 'cp-pressure-plate', nameHi: 'प्रेशर प्लेट', nameEn: 'Pressure Plate', price: 3400, stock: 8, imageType: 'cp-pressure-plate', imageUrl: null },
+  { id: 'cp-release-bearing', nameHi: 'क्लच रिलीज बेयरिंग', nameEn: 'Clutch Release Bearing', price: 950, stock: 15, imageType: 'cp-release-bearing', imageUrl: null },
+  { id: 'cp-clutch-bearing', nameHi: 'क्लच बेयरिंग', nameEn: 'Clutch Bearing', price: 450, stock: 20, imageType: 'cp-clutch-bearing', imageUrl: null },
+  { id: 'cp-cover-assembly', nameHi: 'क्लच कवर असेंबली', nameEn: 'Clutch Cover Assembly', price: 5800, stock: 4, imageType: 'cp-cover-assembly', imageUrl: null },
+  { id: 'cp-clutch-fork', nameHi: 'क्लच फोर्क', nameEn: 'Clutch Fork', price: 750, stock: 10, imageType: 'cp-clutch-fork', imageUrl: null },
+  { id: 'cp-clutch-hub', nameHi: 'क्लच हब', nameEn: 'Clutch Hub', price: 1200, stock: 6, imageType: 'cp-clutch-hub', imageUrl: null },
+  { id: 'cp-clutch-lever', nameHi: 'क्लच लीवर', nameEn: 'Clutch Lever', price: 350, stock: 25, imageType: 'cp-clutch-lever', imageUrl: null },
+  { id: 'cp-release-sleeve', nameHi: 'क्लच रिलीज स्लीव', nameEn: 'Clutch Release Sleeve', price: 650, stock: 14, imageType: 'cp-release-sleeve', imageUrl: null },
+  { id: 'cp-clutch-cable', nameHi: 'क्लच केबल (क्लच केबल)', nameEn: 'Clutch Cable', price: 450, stock: 30, imageType: 'cp-clutch-cable', imageUrl: null },
+  { id: 'cp-pedal-bush', nameHi: 'क्लच पेडल बुश', nameEn: 'Clutch Pedal Bush', price: 150, stock: 50, imageType: 'cp-pedal-bush', imageUrl: null },
+  { id: 'cp-master-cylinder', nameHi: 'क्लच मास्टर सिलेंडर', nameEn: 'Clutch Master Cylinder', price: 2100, stock: 5, imageType: 'cp-master-cylinder', imageUrl: null },
+  { id: 'cp-slave-cylinder', nameHi: 'क्लच स्लेव सिलेंडर', nameEn: 'Clutch Slave Cylinder', price: 1650, stock: 7, imageType: 'cp-slave-cylinder', imageUrl: null },
+  { id: 'cp-repair-kit', nameHi: 'क्लच रिपेयर किट', nameEn: 'Clutch Repair Kit', price: 850, stock: 15, imageType: 'cp-repair-kit', imageUrl: null },
+  { id: 'cp-complete-kit', nameHi: 'कम्पलीट क्लच किट', nameEn: 'Complete Clutch Kit', price: 7500, stock: 3, imageType: 'cp-complete-kit', imageUrl: null }
+];
+
+
 

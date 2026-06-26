@@ -1,7 +1,17 @@
 import { createSlice } from '@reduxjs/toolkit';
 
+const getInitialUser = () => {
+  try {
+    const userStr = localStorage.getItem('user');
+    return userStr ? JSON.parse(userStr) : null;
+  } catch (error) {
+    console.error('Failed to parse user from localStorage:', error);
+    return null;
+  }
+};
+
 const initialState = {
-  user: null,
+  user: getInitialUser(),
   token: localStorage.getItem('token') || null,
   isAuthenticated: !!localStorage.getItem('token'),
   loading: false,
@@ -22,6 +32,7 @@ const authSlice = createSlice({
       state.user = action.payload.user;
       state.token = action.payload.token;
       localStorage.setItem('token', action.payload.token);
+      localStorage.setItem('user', JSON.stringify(action.payload.user));
     },
     loginFailure: (state, action) => {
       state.loading = false;
@@ -33,9 +44,11 @@ const authSlice = createSlice({
       state.isAuthenticated = false;
       state.error = null;
       localStorage.removeItem('token');
+      localStorage.removeItem('user');
     },
     updateUser: (state, action) => {
       state.user = action.payload;
+      localStorage.setItem('user', JSON.stringify(action.payload));
     },
   },
 });

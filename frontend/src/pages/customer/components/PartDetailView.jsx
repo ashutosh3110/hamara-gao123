@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Plus, Minus, ShoppingCart, ShieldCheck, CheckCircle } from 'lucide-react';
+import ProductImage from './ProductImage';
 
 export default function PartDetailView({ 
   part, 
@@ -32,7 +33,7 @@ export default function PartDetailView({
         nameRaw: lang === 'hi' ? part.nameHi : part.nameEn,
         price: part.price,
         unit: '1 unit',
-        imageType: null,
+        imageType: part.imageType,
         imageUrl: part.imageUrl,
         isCustomPart: true
       });
@@ -55,11 +56,18 @@ export default function PartDetailView({
       {/* Product Image Card */}
       <div className="relative rounded-2xl bg-white border border-neutral-100 p-4 shadow-3xs flex justify-center items-center">
         <div className="w-full h-48 overflow-hidden rounded-xl bg-white flex items-center justify-center shrink-0">
-          <img 
-            src={part.imageUrl} 
-            alt={lang === 'hi' ? part.nameHi : part.nameEn} 
-            className="w-full h-full object-contain p-2"
-          />
+          {part.imageUrl ? (
+            <img 
+              src={part.imageUrl} 
+              alt={lang === 'hi' ? part.nameHi : part.nameEn} 
+              className="w-full h-full object-contain p-2"
+            />
+          ) : (
+            <ProductImage 
+              type={part.imageType} 
+              className="w-full h-full object-contain p-2"
+            />
+          )}
         </div>
         <span className="absolute top-3 right-3 rounded bg-emerald-50 border border-emerald-100 px-2 py-0.5 text-[9px] font-black text-emerald-800 uppercase tracking-wider">
           {lang === 'hi' ? '100% असली' : '100% Genuine'}

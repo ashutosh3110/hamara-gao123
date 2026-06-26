@@ -23,11 +23,15 @@ import TractorBrandsView from './components/TractorBrandsView';
 import TractorModelsView from './components/TractorModelsView';
 import TractorPartsView from './components/TractorPartsView';
 import EnginePartsView from './components/EnginePartsView';
+import ClutchPartsView from './components/ClutchPartsView';
 import PartDetailView from './components/PartDetailView';
 import VegetablesCategoryView from './components/VegetablesCategoryView';
 import CategoriesGrid from './components/CategoriesGrid';
 import TrustBadges from './components/TrustBadges';
 import BestSellingProducts from './components/BestSellingProducts';
+import LatestBlogsView from './components/LatestBlogsView';
+import BlogsListView from './components/BlogsListView';
+import BlogDetailView from './components/BlogDetailView';
 import BottomNavigation from './components/BottomNavigation';
 
 const localTranslations = {
@@ -192,6 +196,7 @@ export default function CustomerDashboard() {
   const [selectedModel, setSelectedModel] = useState(null);
   const [selectedPartCategory, setSelectedPartCategory] = useState(null);
   const [selectedPart, setSelectedPart] = useState(null);
+  const [selectedArticle, setSelectedArticle] = useState(null);
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -354,6 +359,22 @@ export default function CustomerDashboard() {
                   t={t}
                   onBack={() => setCurrentCategory(null)}
                 />
+              ) : currentCategory === 'blogs' ? (
+                selectedArticle ? (
+                  <BlogDetailView
+                    lang={lang}
+                    article={selectedArticle}
+                    onBack={() => setSelectedArticle(null)}
+                    onSelectArticle={setSelectedArticle}
+                    addToCart={addToCart}
+                  />
+                ) : (
+                  <BlogsListView
+                    lang={lang}
+                    onBack={() => setCurrentCategory(null)}
+                    onSelectArticle={setSelectedArticle}
+                  />
+                )
               ) : currentCategory === 'tractor' ? (
                 <div className="flex-1 flex flex-col overflow-hidden bg-neutral-50">
                   
@@ -438,6 +459,12 @@ export default function CustomerDashboard() {
                     selectedPartCategory.id === 'part-engine' ? (
                       <EnginePartsView 
                         lang={lang} 
+                        onSelectPart={setSelectedPart}
+                      />
+                    ) : selectedPartCategory.id === 'part-clutch' ? (
+                      <ClutchPartsView 
+                        lang={lang} 
+                        model={selectedModel}
                         onSelectPart={setSelectedPart}
                       />
                     ) : (
@@ -548,6 +575,19 @@ export default function CustomerDashboard() {
                       addToCart={addToCart}
                       t={t}
                     />
+
+                    {/* Latest Blogs and Tips Component */}
+                    <LatestBlogsView 
+                       lang={lang} 
+                       onSelectBlog={(blog) => {
+                         setCurrentCategory('blogs');
+                         setSelectedArticle(blog);
+                       }}
+                       onViewAll={() => {
+                         setCurrentCategory('blogs');
+                         setSelectedArticle(null);
+                       }}
+                     />
 
                   </div>
 

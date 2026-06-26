@@ -26,10 +26,18 @@ const AdminDashboard = () => (
 );
 
 const ProtectedRoute = ({ children, allowedRoles }) => {
-  const { isAuthenticated, user } = useSelector((state) => state.auth);
+  const { isAuthenticated, user, token } = useSelector((state) => state.auth);
 
   if (!isAuthenticated) {
     return <Navigate to="/login" replace />;
+  }
+
+  if (token && !user) {
+    return (
+      <div className="flex h-screen w-screen items-center justify-center bg-neutral-900">
+        <div className="text-white text-sm font-bold animate-pulse">Loading Profile...</div>
+      </div>
+    );
   }
 
   if (allowedRoles && !allowedRoles.includes(user?.role)) {
@@ -45,6 +53,27 @@ const ProtectedRoute = ({ children, allowedRoles }) => {
         return <Navigate to="/admin/dashboard" replace />;
       default:
         return <Navigate to="/" replace />;
+    }
+  }
+
+  return children;
+};
+
+const PublicRoute = ({ children }) => {
+  const { isAuthenticated, user } = useSelector((state) => state.auth);
+
+  if (isAuthenticated && user) {
+    switch (user.role) {
+      case 'Customer':
+        return <Navigate to="/customer/dashboard" replace />;
+      case 'Vendor':
+        return <Navigate to="/vendor/dashboard" replace />;
+      case 'Delivery Boy':
+        return <Navigate to="/delivery/dashboard" replace />;
+      case 'Admin':
+        return <Navigate to="/admin/dashboard" replace />;
+      default:
+        return children;
     }
   }
 
@@ -82,8 +111,8 @@ export const AppRoutes = () => {
   return (
     <Routes>
       {/* Public Routes */}
-      <Route path="/login" element={<Login />} />
-      <Route path="/register" element={<Register />} />
+      <Route path="/login" element={<PublicRoute><Login /></PublicRoute>} />
+      <Route path="/register" element={<PublicRoute><Register /></PublicRoute>} />
 
       {/* Role-Based Protected Routes */}
       <Route
